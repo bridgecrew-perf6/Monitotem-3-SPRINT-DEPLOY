@@ -69,7 +69,7 @@ public class ThreadHardware extends javax.swing.JFrame {
     
     }
 
-    private void sendInformation() throws SQLException {
+     private void sendInformation() throws SQLException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         ConnectionFactory connectionFactory = new ConnectionFactory();
@@ -77,7 +77,7 @@ public class ThreadHardware extends javax.swing.JFrame {
 
         Timer timer = new Timer();
 
-        String sql = "INSERT INTO registro(usoMemoria,usoCpu,tempoAtividade,dataRegistro,statusRegistro, fk_totem) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO registro(usoMemoria,usoCpu,tempoAtividade,dataRegistro,statusRegistro, fk_totem,memoriaTotal) VALUES(?,?,?,?,?,?,?)";
 
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -94,6 +94,7 @@ public class ThreadHardware extends javax.swing.JFrame {
                     pstm.setString(4, formatter.format(LocalDateTime.now()));
                     pstm.setString(5, "FUNCIONANDO");
                     pstm.setInt(6, 44);
+                    pstm.setInt(7, (int) ((pc.getMemoria().getDisponivel() * 100) / pc.getMemoria().getTotal()));
 
                     pstm.execute();
 
@@ -110,6 +111,7 @@ public class ThreadHardware extends javax.swing.JFrame {
             }
         }, 2, 3000);
     }
+
 
     private void getMemoriaTxt() {
         Timer timer = new Timer();
