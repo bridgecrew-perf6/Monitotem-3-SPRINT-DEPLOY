@@ -1,0 +1,246 @@
+body {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.container_action {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.processos_action {
+  width: 100%;
+  height: 25%;
+  display: flex;
+  padding: 10px;
+  justify-content: space-evenly;
+  align-items: center;
+  padding-right: 5%;
+}
+
+.top_processos {
+  height: 100%;
+  width: 15%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 10px;
+  transition: all 0.3s;
+  cursor: pointer;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.top_processos:hover{
+  background-color: rgb(207, 207, 207);
+  border: solid 1px;
+}
+
+.top_processos span {
+  font-size: 5em;
+  margin-top: 10px;
+}
+
+.top_processos span span {
+  font-size: 0.5em;
+  margin-top: 10px;
+}
+
+.graficos_action {
+  width: 100%;
+  height: 75%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.grafico_ram_cpu {
+  width: 70%;
+  height: 100%;
+  margin: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.grafico_ram {
+  height: 50%;
+  width: 95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.grafico_cpu {
+  height: 50%;
+  width: 95%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+.grafico_disco {
+  width: 30%;
+  height: 95%;
+  margin-top: 20px;
+  display: flex;
+  margin-left: 10px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.chartDisco {
+  height: 80%;
+  width: 100%;
+  padding: 30px;
+  padding-left: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chartDisco span {
+  font-size: 2.5em;
+  position: absolute;
+  margin-top: 25px;
+  margin-left: 10px;
+}
+
+.grafico_disco h1 {
+  font-size: 1.5em;
+}
+
+.buttons-action {
+  height: 40%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons-action button {
+  margin: 10px;
+  height: 50px;
+  width: 120px;
+  font-size: 1em;
+  color: black;
+  border: 1px solid #2855b5;
+  border-radius: 0.3em;
+  transition: all 0.3s;
+  background-color: #19419600;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.buttons-action button:hover {
+  background-color: #2855b5;
+  color: white;
+}
+
+.modal{
+  width: 450px;
+  height: 210px;
+  background-color: #ffff;
+  border-top: 15px solid #2855b5;
+  border-radius: 5px;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    animation: animate;
+    animation-duration: 800ms;
+}
+
+.modal span{
+  font-size: 1.5em;
+}
+
+.container_modal{
+  height: 100px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal span{
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.cancelar{
+  height: 50px;
+  width: 100px;
+  margin: 20px;
+  font-size: 1.1em;
+  border-radius: 5px;
+  transition: all 0.3s;
+  border: #2855b5 1px solid;
+}
+
+.cancelar:hover{
+  background-color: #2855b5;
+  font-size: 1.2em;
+  color: white;
+}
+
+.encerrar{
+  height: 50px;
+  width: 100px;
+  font-size: 1.1em;
+  border-radius: 5px;
+  margin: 20px;
+  transition: all 0.3s;
+  border: red 1px solid;
+}
+
+.encerrar:hover{
+  background-color: red;
+  font-size: 1.2em;
+  color: white;
+}
+
+
+@keyframes animate{
+
+  from{opacity: 1;}
+  from{opacity: 0;}
+
+}
+
+.fecharModal{
+  width: 30px;
+  height: 30px;
+  background-color: black;
+  float: right;
+}
+
+
+.fundoModal{
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.607);
+  display: none;
+    animation: animate;
+    animation-duration: 800ms;
+}
+
+.activee{
+  background-color: white;
+  color: #286db5;
+}

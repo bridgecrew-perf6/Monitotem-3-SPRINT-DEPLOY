@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/reset.css" />
+  <link rel="stylesheet" href="../css/global.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <script src="../js/action.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Poppins:ital,wght@0,400;0,500;0,600;1,300;1,400;1,500;1,600&family=Rajdhani:wght@400;600&display=swap"
+    rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/65f59d00ab.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../css/action.css">
+  <link rel="shortcut icon" href="./assets/totemCerto-2.png" type="image/x-icon">
+
+  <script src="../js/dashboard.js"></script>
+  <link rel="stylesheet" href="../css/homedashboard.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+  <title>Monitotem - Dashboard</title>
+</head>
+
+<body>
+
+  <nav id="abrirMenu">
+    <div class="container_navbar">
+      <div id="menu" class="menu">
+        <i onclick="abrir()" class="fa-solid fa-bars"></i>
+      </div>
+      <div id="user" class="user">
+        <i class="fa-solid fa-circle-user"></i> <span id="nomeUsuario"> Claudio </span>
+      </div>
+      <div id="options_menu" class="options_menu">
+        <a onclick="fechar()" class="option" href="./homeDashboard.html"><i class="fa-solid fa-chart-column"></i>
+          <div id="option1" class="option_text">Painel</div>
+        </a>
+        <a onclick="fechar()" class="option activee" href="#">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          <div id="option2" class="option_text">Action</div>
+        </a>
+        <a onclick="fechar()" class="option" href="#action">
+          <i class="slack fa-brands fa-slack"></i>
+          <div id="option3" class="option_text">Slack</div>
+        </a>
+        <a onclick="fechar()" class="option" href="#action">
+          <i class="fa-solid fa-gear"></i>
+          <div id="option4" class="option_text">Ajustes</div>
+        </a>
+      </div>
+      <a onclick="fechar()" class="option" href="../index.html"> <i class="exit fa-solid fa-right-from-bracket"></i>
+      </a>
+    </div>
+  </nav>
+  <div onclick="fecharModal()" class="fundoModal"></div>
+  <div class="modal">
+    <span>Deseja encerrar o processo?</span>
+    <div class="container_modal">
+      <button onclick="fecharModal()" class="cancelar">Cancelar</button>
+      <button onclick="fecharModal()" class="encerrar">Encerrar</button>
+
+    </div>
+  </div>
+  <div class="container_action">
+    <div class="processos_action">
+      <div onclick="abrirModal()" class="top_processos">
+        <span>0<span>%</span></span>
+        <p>Processo 1</p>
+      </div>
+      <div onclick="abrirModal()" class="top_processos">
+        <span>0<span>%</span></span>
+        <p>Processo 2</p>
+      </div>
+      <div onclick="abrirModal()" class="top_processos">
+        <span>0<span>%</span></span>
+        <p>Processo 3</p>
+      </div>
+    </div>
+    <div class="graficos_action">
+      <div class="grafico_ram_cpu">
+        <div class="grafico_ram">
+          <h1>RAM</h1>
+          <canvas id="chartRam" height="70"></canvas>
+        </div>
+        <div class="grafico_cpu">
+          <h1>CPU</h1>
+          <canvas id="chartCpu" height="70"></canvas>
+
+        </div>
+      </div>
+      <div class="grafico_disco">
+        <h1>Disco</h1>
+        <div class="chartDisco"><span>90%</span><canvas id="chartDisco"></canvas></div>
+
+        <div class="buttons-action">
+          <button>Limpar cache</button>
+          <button onclick="reiniciarMaquina()">Reiniciar</button>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</body>
+
+</html>
+<script>
+
+  function reiniciarMaquina() {
+
+    fetch("/usuarios/reiniciarMaquina", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        reiniciarMaquinaServer: 1,
+
+
+      })
+    }).then(function (resposta) {
+
+      console.log("resposta: ", resposta);
+
+      if (resposta.ok) {
+        window.alert("maquina reiniciada com sucesso");
+        limparFormulario();
+
+      } else {
+        throw ("Houve um erro ao tentar realizar o cadastro!");
+      }
+    }).catch(function (resposta) {
+      console.log(`#ERRO: ${resposta}`);
+
+    });
+
+
+  }
+
+
+
+
+  nomeUsuario.innerHTML = `${sessionStorage.NOME_USUARIO}`
+
+  const disco = document.getElementById('chartDisco');
+  const chartDisco = new Chart(disco, {
+    type: 'doughnut',
+    data: {
+      labels: ['Red', 'Blue'],
+      datasets: [{
+        label: '# of Votes',
+        data: [90, 10],
+        backgroundColor: [
+          '#2855b5',
+          '#051e55',
+
+        ],
+        borderColor: [
+          '#2855b7',
+
+        ],
+      }]
+    },
+  });
+
+
+  const ram = document.getElementById('chartRam');
+  const chartRam = new Chart(ram, {
+    type: 'line',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 19, 3, 5, 2, 3],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)',
+          'rgba(255, 206, 86, 0.2)',
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(153, 102, 255, 0.2)',
+          'rgba(255, 159, 64, 0.2)'
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+
+        }
+      }
+    }
+  });
+
+  const cpu = document.getElementById('chartCpu');
+  const chartCpu = new Chart(cpu, {
+    type: 'line',
+    data: {
+      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      datasets: [{
+        label: '# of Votes',
+        data: [12, 2, 50, 70, 10, 100],
+        backgroundColor: [
+          '#2855b',
+          '#2855b',
+          '#2855b',
+          '#2855b',
+          '#2855b'
+        ],
+        borderColor: [
+          '#2855b',
+          '#2855b',
+          '#2855b',
+          '#2855b',
+          '#2855b'
+
+        ],
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    },
+  });
+</script>

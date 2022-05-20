@@ -1,0 +1,110 @@
+var database = require("../database/config");
+
+function listarUsuario() {
+  var instrucao = `
+        SELECT * FROM usuario;
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
+function listarTotem() {
+  var instrucao = `
+        SELECT * FROM totem;
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
+function entrarEmpresa(emailEmpresa, senhaEmpresa) {
+  var instrucao = `
+        SELECT * FROM empresa WHERE emailEmpresa = '${emailEmpresa}' AND senhaEmpresa = '${senhaEmpresa}';
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
+
+
+function cadastrarEmpresa(
+  cnpj,
+  nomeEmpresa,
+  emailEmpresa,
+  cep,
+  telefoneEmpresa,
+  senhaEmpresa
+) {
+  var instrucao = `
+        INSERT INTO empresa (cnpj, nomeEmpresa, emailEmpresa, cep, telefoneEmpresa, senhaEmpresa) VALUES 
+        ('${cnpj}', '${nomeEmpresa}', '${emailEmpresa}', '${cep}', '${telefoneEmpresa}', '${senhaEmpresa}');
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+function entrarUsuario(emailUsuario, senhaUsuario) {
+  var instrucao = `
+        SELECT * FROM usuario WHERE emailUsuario = '${emailUsuario}' AND senhaUsuario = '${senhaUsuario}';
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
+function cadastrarUsuario(
+  nomeUsuario,
+  emailUsuario,
+  telefoneUsuario,
+  genero,
+  senhaUsuario
+) {
+  var instrucao = `
+        INSERT INTO usuario (nomeUsuario, emailUsuario, telefoneUsuario, genero,  senhaUsuario) VALUES 
+        ('${nomeUsuario}', '${emailUsuario}', '${telefoneUsuario}', '${genero}', '${senhaUsuario}');
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
+function deletarUsuario(id) {
+  var instrucao = `
+        DELETE FROM usuario WHERE id = ${id};
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+function updateUsuario(id, nomeUsuario, emailUsuario, telefoneUsuario) {
+  console.log("MODEL: ", id);
+  console.log("MODEL: ", nomeUsuario);
+  console.log("MODEL: ", emailUsuario);
+  console.log("MODEL: ", telefoneUsuario);
+  var instrucao = `
+        UPDATE usuario SET nomeUsuario = '${nomeUsuario}', 
+        emailUsuario = '${emailUsuario}', 
+        telefoneUsuario = '${telefoneUsuario}'
+        WHERE id = ${id}
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
+function reiniciarMaquina(
+  reiniciarTotem
+) {
+  var instrucao = `
+  update totem set reiniciarTotem = ${reiniciarTotem} where idTotem = 47;
+    `;
+  console.log("Executando a instrução SQL: \n" + instrucao);
+  return database.executar(instrucao);
+}
+
+
+module.exports = {
+  reiniciarMaquina,
+  entrarEmpresa,
+  entrarUsuario,
+  cadastrarEmpresa,
+  cadastrarUsuario,
+  deletarUsuario,
+  updateUsuario,
+  listarUsuario,
+  listarTotem,
+};
