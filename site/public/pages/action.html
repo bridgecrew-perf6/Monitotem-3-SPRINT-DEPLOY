@@ -25,7 +25,7 @@
   <title>Monitotem - Dashboard</title>
 </head>
 
-<body>
+<body onload="getMemoryTotalRam()">
 
   <nav id="abrirMenu">
     <div class="container_navbar">
@@ -94,7 +94,7 @@
       </div>
       <div class="grafico_disco">
         <h1>Disco</h1>
-        <div class="chartDisco"><span>90%</span><canvas id="chartDisco"></canvas></div>
+        <div class="chartDisco"><span id="poercentDisc" > </span><canvas id="chartDisco"></canvas></div>
 
         <div class="buttons-action">
           <button>Limpar cache</button>
@@ -141,11 +141,36 @@
 
   }
 
+  // Chart Memory
+
+
+ setInterval( function getMemoryTotalRam() {
+    fetch("/usuarios/getMemoryTotalRam").then(function (resposta) {
+        console.log("ESTOU NO THEN DO getMemoryTotalRam()!")
+        if (resposta.ok) {
+            resposta.json().then(function (resposta) {
+                console.log("Dados recebidos do usuario: ", JSON.stringify(resposta));
+
+                memoryram = resposta[resposta.indexOf(':') + 1]//não sei pq mas isso funciona
+                console.log(memoryram.RamEmUsobd);
+                sessionStorage.MEMORYRAM = memoryram.RamEmUsobd;
+
+            });
+        } else {
+            console.log("Dados recebidos: ", JSON.stringify(resposta));
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+    })
+    return false;
+},2000);
 
 
 
-  nomeUsuario.innerHTML = `${sessionStorage.NOME_USUARIO}`
+  nomeUsuario.innerHTML = `${sessionStorage.NOME_USUARIO}`;
+ 
 
+  poercentDisc.innerHTML =  sessionStorage.MEMORYRAM;
   const disco = document.getElementById('chartDisco');
   const chartDisco = new Chart(disco, {
     type: 'doughnut',
@@ -153,7 +178,7 @@
       labels: ['Red', 'Blue'],
       datasets: [{
         label: '# of Votes',
-        data: [90, 10],
+        data: [10, Number(sessionStorage.MEMORYRAM)],
         backgroundColor: [
           '#2855b5',
           '#051e55',
@@ -168,6 +193,49 @@
   });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   const ram = document.getElementById('chartRam');
   const chartRam = new Chart(ram, {
     type: 'line',
@@ -175,7 +243,7 @@
       labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
       datasets: [{
         label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
+        data: [Number(sessionStorage.MEMORYRAM), Number(sessionStorage.MEMORYRAM), Number(sessionStorage.MEMORYRAM), Number(sessionStorage.MEMORYRAM),Number(sessionStorage.MEMORYRAM), Number(sessionStorage.MEMORYRAM)],
         backgroundColor: [
           'rgba(255, 99, 132, 0.2)',
           'rgba(54, 162, 235, 0.2)',
