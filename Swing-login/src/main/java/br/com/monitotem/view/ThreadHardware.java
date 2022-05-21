@@ -50,7 +50,7 @@ public class ThreadHardware extends javax.swing.JFrame {
         
         Integer valueReinicied = null;
 
-         String sql = "select reiniciarTotem from totem where idTotem = 44;";
+         String sql = "select reiniciarTotem from totem where idTotem = 49;";
          
          
                     try ( PreparedStatement pstm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -96,6 +96,22 @@ public class ThreadHardware extends javax.swing.JFrame {
                     pstm.setInt(6, 48);
                     pstm.setInt(7, (int) ((pc.getMemoria().getDisponivel() * 100) / pc.getMemoria().getTotal()));
 
+                    if (((pc.getMemoria().getEmUso() * 100) / pc.getMemoria().getTotal()) + 1 > 70) {
+                        
+                        SlackAPI.postMessage("xoxb-3431609768566-3438312290354-XJY3Bz1jDMI5IH6YUZm7g2dp", "alertas", "Cuidado sua memoria esta em nivel emergencial");
+                        
+                    }
+                    
+                    if (pc.getProcessador().getUso().intValue() > 60) {
+                        
+                        SlackAPI.postMessage("xoxb-3431609768566-3438312290354-XJY3Bz1jDMI5IH6YUZm7g2dp", "alertas", "Cuidado seu processador esta em nivel emergencial");
+                        
+                    }
+                    
+                   
+                    
+                   
+                    
                     pstm.execute();
 
                     try ( ResultSet rs = pstm.getGeneratedKeys()) {

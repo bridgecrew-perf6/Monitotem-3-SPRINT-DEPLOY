@@ -42,7 +42,7 @@ public class TestSelect {
                     Logger.getLogger(TestSelect.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
-                String sql = "select reiniciarTotem from totem where idTotem = 47";
+                String sql = "select reiniciarTotem from totem where idTotem = 49";
 
                 try ( PreparedStatement pstm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
@@ -63,7 +63,7 @@ public class TestSelect {
 
                 if (NumberReboot == 1) {
 
-                    String sql2 = "UPDATE totem SET reiniciarTotem = 0 WHERE idTotem = 47";
+                    String sql2 = "UPDATE totem SET reiniciarTotem = 0 WHERE idTotem = 49";
 
                     try ( PreparedStatement pstm = con.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS)) {
 

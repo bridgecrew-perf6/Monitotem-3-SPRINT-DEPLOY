@@ -11,7 +11,7 @@ public class Slack {
 
     public void sendNewUser(Usuario usuario) {
         try {
-            SlackAPI.postMessage("xoxb-3431609768566-3438312290354-SjIa9U1TQ9sTKVP0frsUU6JB",
+            SlackAPI.postMessage("xoxb-3431609768566-3438312290354-XJY3Bz1jDMI5IH6YUZm7g2dp",
                     "usuarios", "O usuário de email " + usuario.getEmailUsuario()
                     + "e começou sua atividade as "
                     + LocalDateTime.now());
@@ -22,7 +22,7 @@ public class Slack {
 
     public void sendAlert(String msg) {
         try {
-            SlackAPI.postMessage("xoxb-3431609768566-3438312290354-SjIa9U1TQ9sTKVP0frsUU6JB",
+            SlackAPI.postMessage("xoxb-3431609768566-3438312290354-XJY3Bz1jDMI5IH6YUZm7g2dp",
                     "alertas", msg);
         } catch (Exception e) {
             e.getMessage();
