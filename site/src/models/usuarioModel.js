@@ -71,6 +71,8 @@ function deletarUsuario(id) {
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
+
+
 function updateUsuario(id, nomeUsuario, emailUsuario, telefoneUsuario) {
   console.log("MODEL: ", id);
   console.log("MODEL: ", nomeUsuario);
@@ -85,6 +87,8 @@ function updateUsuario(id, nomeUsuario, emailUsuario, telefoneUsuario) {
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
 }
+
+
 
 function reiniciarMaquina(
   reiniciarTotem
@@ -104,7 +108,7 @@ module.exports = {
   cadastrarEmpresa,
   cadastrarUsuario,
   deletarUsuario,
-  updateUsuario,
   listarUsuario,
   listarTotem,
+  updateUsuario
 };

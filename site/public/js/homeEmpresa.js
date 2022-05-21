@@ -4,16 +4,13 @@ function abrirmodal() {
 }
 
 function fecharModal() {
-  modalUsers.style.display = "none";
-  fundoModal.style.display = "none";
-  divModal.style.display = "none";
-  modalExcluirUsuario.style.display = "none";
+  document.location.reload(true);
 }
 
 var contador = 0;
 
 function abrir() {
-  contador++; 
+  contador++;
   if (contador == 1) {
     document.getElementById("abrirMenu").style.width = "20%";
     document.getElementById("menu").style.margin = "0px 0px 0px -70%";
@@ -118,8 +115,7 @@ function listarUsuario() {
       };
 
       buttonSalvarCancelar.onclick = function facha() {
-        divModal.style.display = "none";
-        fundoModal.style.display = "none";
+        document.location.reload(true);
       };
 
       buttonSalvar.onclick = function atualizar() {
