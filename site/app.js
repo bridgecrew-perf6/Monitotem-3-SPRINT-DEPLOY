@@ -12,6 +12,7 @@ var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var medidasRouter = require("./src/routes/medidas");
 var totemRouter = require("./src/routes/totem");
+var alertasRouter = require("./src/routes/alertas");
 
 
 
@@ -25,6 +26,7 @@ app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/medidas", medidasRouter)
 app.use("/totem", totemRouter);
+app.use("/alertas", alertasRouter)
 
 
 

@@ -28,7 +28,7 @@ public class TestaInsercaoEListagemComUsuario {
 
             TotemDAO usuarioDAO = new TotemDAO(con);
 
-            usuarioDAO.salvar(prod);
+    
            
         }
 

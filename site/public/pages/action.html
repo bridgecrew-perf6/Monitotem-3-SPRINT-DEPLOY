@@ -24,7 +24,7 @@
   <title>Monitotem - Dashboard</title>
 </head>
 
-<body onload="atualizarFeed(),obterDadosGrafico()">
+<body onload="atualizarFeed(),obterDadosGrafico(),getMemoryTotalRam()">
 
   <nav id="abrirMenu">
     <div class="container_navbar">
@@ -291,53 +291,53 @@
     // Chart Memory
 
 
-    //  setInterval( function getMemoryTotalRam() {
-    //     fetch("/usuarios/getMemoryTotalRam").then(function (resposta) {
-    //         console.log("ESTOU NO THEN DO getMemoryTotalRam()!")
-    //         if (resposta.ok) {
-    //             resposta.json().then(function (resposta) {
-    //                 console.log("Dados recebidos do usuario: ", JSON.stringify(resposta));
+     setInterval( function getMemoryTotalRam() {
+        fetch("/usuarios/getMemoryTotalRam").then(function (resposta) {
+            console.log("ESTOU NO THEN DO getMemoryTotalRam()!")
+            if (resposta.ok) {
+                resposta.json().then(function (resposta) {
+                    console.log("Dados recebidos do usuario: ", JSON.stringify(resposta));
 
-    //                 memoryram = resposta[resposta.indexOf(':') + 1]//não sei pq mas isso funciona
-    //                 console.log(memoryram.RamEmUsobd);
-    //                 sessionStorage.MEMORYRAM = memoryram.RamEmUsobd;
+                    memoryram = resposta[resposta.indexOf(':') + 1]//não sei pq mas isso funciona
+                    console.log(memoryram.RamEmUsobd);
+                    sessionStorage.MEMORYRAM = memoryram.RamEmUsobd;
 
-    //             });
-    //         } else {
-    //             console.log("Dados recebidos: ", JSON.stringify(resposta));
-    //         }
-    //     }).catch(function (erro) {
-    //         console.log(erro);
-    //     })
-    //     return false;
-    // },2000);
+                });
+            } else {
+                console.log("Dados recebidos: ", JSON.stringify(resposta));
+            }
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+        return false;
+    },2000);
 
 
 
     //   nomeUsuario.innerHTML = `${sessionStorage.NOME_USUARIO}`;
 
 
-    //   poercentDisc.innerHTML =  sessionStorage.MEMORYRAM;
-    //   const disco = document.getElementById('chartDisco');
-    //   const chartDisco = new Chart(disco, {
-    //     type: 'doughnut',
-    //     data: {
-    //       labels: ['Red', 'Blue'],
-    //       datasets: [{
-    //         label: '# of Votes',
-    //         data: [10, Number(sessionStorage.MEMORYRAM)],
-    //         backgroundColor: [
-    //           '#2855b5',
-    //           '#051e55',
+      poercentDisc.innerHTML =  sessionStorage.MEMORYRAM;
+      const disco = document.getElementById('chartDisco');
+      const chartDisco = new Chart(disco, {
+        type: 'doughnut',
+        data: {
+          labels: ['Red', 'Blue'],
+          datasets: [{
+            label: '# of Votes',
+            data: [10, Number(sessionStorage.MEMORYRAM)],
+            backgroundColor: [
+              '#2855b5',
+              '#051e55',
 
-    //         ],
-    //         borderColor: [
-    //           '#2855b7',
+            ],
+            borderColor: [
+              '#2855b7',
 
-    //         ],
-    //       }]
-    //     },
-    //   });
+            ],
+          }]
+        },
+      });
 
 
     // const ram = document.getElementById('chartRam');
