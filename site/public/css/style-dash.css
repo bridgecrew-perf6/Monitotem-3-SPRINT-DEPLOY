@@ -1,0 +1,766 @@
+body {
+    padding:0;
+    margin:0;
+    background-color: white;
+    overflow-x: hidden;
+  }
+  
+  .container {
+    width: 90%;
+    height: 100%;
+    margin: auto;
+  }
+  
+  .header {
+  color: white;
+  border-bottom: 2.5px solid #FF5100;
+  
+  }
+
+.header .container {
+
+display: flex;
+justify-content: space-between;
+
+}
+
+  .selecionado {
+      font-weight: bold;
+  }
+  .navbar {
+    
+    width: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    text-decoration: none;
+  }
+
+  header a {
+      text-decoration: none;
+      color: grey;
+      text-decoration-style: none;
+  }
+
+
+ .banner {
+
+  color: white;
+  height: 500px;
+  background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("https://static.wikia.nocookie.net/minecraft_gamepedia/images/4/4b/Moon_Phases.gif/revision/latest/scale-to-width-down/160?cb=20190922042321");
+  background-size: cover;
+  background-repeat: no-repeat;
+
+
+
+ }
+
+ .banner .container {
+
+  height: 500px;
+  display: flex;
+  align-items: center;
+ }
+
+ .banner p {
+
+  width: 50%;
+  margin: 0;
+  padding: 0;
+  width: 280px;
+  font-size: 36px;
+  margin-left: 350px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ }
+
+ .social {
+
+ background-color: #d5caca;
+  padding: 50px 0; 
+ }
+
+ .social .container {
+
+ display: flex;
+ justify-content: space-evenly;
+ flex-direction: column;
+ }
+
+ .social .titulo {
+
+ display: flex;
+ justify-content: center;
+ margin-bottom: 50px;
+
+ 
+
+ }
+ .social h2{
+
+ display: flex;
+ padding: 20px;
+ background-color:grey;
+ border-radius: 20px;
+ align-self: center;
+ justify-self: center;
+ text-align: center;
+ color: #e60004;
+ margin: 0;
+ 
+}
+
+ .social .boxes {
+ display: flex;
+ align-items: flex-start;
+
+}
+
+ .social .box {
+ display: flex;
+ flex-wrap: wrap;
+ justify-content: center;
+ flex-direction: column;
+ text-align: center;
+ width: 33%;
+}
+
+.social .box img {
+ width: 150px;
+ align-self: center;
+
+}
+
+.social .titulo {
+ display: flex;
+ justify-content: center;
+ margin-bottom: 50px;
+}
+
+
+.footer {
+
+  background-color: #0C0F0F;
+  height: 150px;
+  color: white;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+ 
+}
+
+.footer .container {
+
+display: flex;
+justify-content: center;
+align-items: center;
+text-decoration: none;
+}
+
+
+.h4 {
+  margin: 0;
+  padding: 0;
+}
+
+a:visited {
+ 
+  color: grey
+
+}
+
+a:hover{
+
+  font-weight: bold;
+}
+
+a:active{
+
+  color: white;
+}
+
+.banner-login {
+  color: #0C0F0F;
+  height: 590px;
+  background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("https://blog.eletrogate.com/wp-content/uploads/2021/06/3.gif");
+  background-repeat: no-repeat;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  background-size: cover;
+}
+
+.banner-login .container {
+  height: 550px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-login .card {
+  background-color: #E5E5E5;
+  height: 700px;
+  width: 500px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+  border-radius: 35px 0px;
+  margin-top: 50px;
+  
+}
+
+button {
+  cursor: pointer;
+}
+
+input {
+  height: 30px;
+  border: 2px solid #FF5100;
+  border-radius: 10px;
+  
+}
+
+select {
+  height: 30px;
+  border: 2px solid #FF5100;
+  border-radius: 10px;
+  
+}
+
+.btn {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  border: 0;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 10px 15px;
+  color: white;
+  background-color: #FF5100;
+  width: 120px;
+  align-self: center;
+  margin-top: 10px;
+}
+
+#card-calc {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+
+#img-dash{
+
+  width: 80%;
+  margin: 0 auto;
+
+}
+
+
+.graf {
+  position: absolute;
+  background-color: rgba(255,255,255,0.05);
+  width: 23.6%;
+  height: 38vh;
+  margin: 10px;
+  padding: 5px;
+  left: 54%;
+  top: 90.1%
+}
+
+
+.dash-container {
+
+  display: flex; 
+  justify-content: center;
+  margin-top: 115px;
+  margin-bottom: 2%;
+}
+
+
+.grouf{
+
+  display: flex;
+ background-color: rgba(255,255,255,0.05);
+ color: white;
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 16%;
+  height: 36vh;
+ 
+}
+
+
+
+
+.graf #cont_9cc8fd19de7707bda410d82161066b6fg{
+
+  margin-right: 10px;
+
+}
+
+#bem-vindo{
+  padding-right: 10px;
+  padding-bottom: 20px;
+  color: white;
+font-size: large;
+font-weight: 600;
+
+}
+
+.grif{
+  position: absolute;
+  background-color: rgba(255,255,255,0.05);
+  width: 29%;
+  height: 38vh;
+  margin: 10px;
+  padding: 5px;
+  left: 24%;
+  top: 90.1%
+}
+
+#bem-vindo{
+  padding-top: 20px;
+ font-weight: bold;
+ font-size: 26;
+ text-align: center;
+}
+
+.arrumarGrif{
+  display: flex;
+ background-color: rgba(255,255,255,0.05);
+  width: 15%;
+  height: 36.2vh;
+  
+}
+
+ #bem-vindo{
+
+  font-weight: bolder;
+  font-size: 30px;
+
+ }
+
+ 
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,700&display=swap');
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Montserrat', sans-serif;
+	background-color: #0C0F0F;
+}
+
+header {
+	
+	width: 100%;
+	position: absolute;
+	margin-top: 40px;
+	
+}
+
+nav {
+	text-align: center;
+	line-height: 40px;
+
+
+}
+
+.banner {
+	background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("https://scitechdaily.com/images/3D-Printer.gif");
+	width: 100%;
+	height: 85vh;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.marginlogo{
+	margin-top: 170px;
+}
+
+.banner h1, h3{
+	margin: 0;
+	padding: 0;
+	position: relative;
+	text-align: center;
+	top: 45%;
+	font-size: 40px;
+	color: white;
+}
+
+.menu ul li {
+    list-style: none;
+    display: inline-block;
+}
+
+.menu ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 5px 20px;
+    text-transform: uppercase;
+	border: 1px solid transparent;
+	
+}
+
+.menu ul li.ativo a {
+	background-color: #ffff;
+	color: #000;
+}
+
+.menu ul li a:hover {
+	background-color: #ffff;
+	color: black;
+	transition: 0.6s ease;
+}
+
+.menu ul {
+	padding-right: 20px;
+	margin-top: 20px;
+}
+
+.spacing {
+	margin-top: 400px;
+	width: 1000px;
+}
+
+
+.graf_principal {
+  width: 55%;
+  margin: auto;
+  /* padding-top: 45px; */
+  display: flex;
+  justify-content: space-around;
+  background-color: rgba(255,255,255,0.05);
+  position: absolute;
+  left: 24%;
+  top: 34%
+}
+
+.quartil {
+    height: 75vh;
+    width: 12vw;
+    display: flex;
+    justify-content: space-around;
+    background-color: rgba(255,255,255,0.05);
+    position: absolute;
+    right: 80%;
+    top: 42.6%;
+}
+
+
+.alinhamento_graf {
+  width: 80vw;
+}
+
+.quartil_vermelho {
+  background-color:  #ff0000;
+    display: flex;
+    justify-content: center;
+    margin-top: 32px;
+    width: 130px;
+    height: 12%;
+    position: absolute;
+}
+
+.quartil_amarelo {
+  background-color: #f1c40f;
+    display: flex;
+    justify-content: center;
+    margin-top: 116px;
+    width: 130px;
+    height: 12%;
+    position: absolute;
+  }
+
+  .quartil_verde {
+    background-color: #2ecc71;
+      display: flex;
+      justify-content: center;
+      margin-top: 200px;
+      width: 130px;
+      height: 12%;
+      position: absolute;
+    }
+  .quartil_ciano {
+      background-color: #3498db;
+        display: flex;
+        justify-content: center;
+        margin-top: 285px;
+        width: 130px;
+        height: 12%;
+        position: absolute;
+      }
+
+   .quartil_azul {
+        background-color: #add8e6;
+          display: flex;
+          justify-content: center;
+          margin-top: 370px;
+          width: 130px;
+          height: 12%;
+          position: absolute;
+        }
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        /* pagina mural */
+
+*,
+body {
+  font-family: "Exo 2", sans-serif;
+}
+
+
+
+
+
+
+.regua {
+      display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 15%;
+    margin-top: 30px;
+    position: absolute;
+    left: 7%;
+}
+
+.regua2 {
+  display: flex;
+flex-wrap: wrap;
+justify-content: center;
+width: 15%;
+margin-top: 150px;
+position: absolute;
+left: 7%;
+}
+
+.perigo-frio {
+  background-color: #fa0000;  
+}
+
+.perigo-quente {
+  background-color: #add8e6;
+}
+
+.alerta-frio {
+  background-color: #f1c40f;  
+}
+
+.alerta-quente {
+  background-color: #3498bc;
+}
+
+.ideal {
+  background-color: #2ecc71;
+}
+
+.item-regua {
+  padding: 5px;
+  width: 60%;
+  margin: 5px;
+  text-align: center;
+  padding-top: 15px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  height: 450px;
+  width: 100%;
+  align-items: center;
+  color: rgb(0, 0, 0);
+  position: absolute;
+  left: -2%;
+  top: 33%;
+  font-weight: bolder;
+  font-size: 30px;
+}
+
+
+.card {
+  margin: 2%;
+  width: 20%
+  height 50%;
+  flex-wrap: wrap;
+  display: flex;
+  text-align: center;
+  height: 230px;
+  justify-content: right;
+  background-color: #212124;
+  font-size: 20px;
+  position: absolute;
+  left: 20%;
+}
+
+
+.card1 {
+  margin: 2%;
+    width: 20% height 50%;
+    flex-wrap: wrap;
+    display: flex;
+    text-align: center;
+    height: 230px;
+    justify-content: right;
+    background-color: #212124;
+    font-size: 20px;
+    position: absolute;
+    left: 55%;
+    top: 54%;
+    width: 21%;
+}
+
+
+.card2 {
+  margin: 2%;
+  width: 20%;
+  flex-wrap: wrap;
+  display: flex;
+  text-align: center;
+  height: 230px;
+  justify-content: left;
+  background-color: #212124;
+  font-size: 20px;
+  position: absolute;
+  left: 55%;
+  top: -9%;
+  width: 21%;
+  height: 51%
+}
+
+.card3 {
+  margin: 2%;
+  width: 20%
+  height 50%;
+  flex-wrap: wrap;
+  display: flex;
+  text-align: center;
+  height: 230px;
+  justify-content: right;
+  background-color: #212124;
+  font-size: 20px;
+  position: absolute;
+  left: 27.9%;
+  top: 55%;
+  width: 20%;
+  height: 50%
+}
+
+.card p {
+  margin: 0;
+  font-size: 50px;
+  font-weight: bold;
+  color: black;
+  font-size: 40px;
+}
+
+.cards h1 {
+  font-size: 22px;
+  width: 90%;
+  border-bottom: solid rgb(0, 0, 0) 1px;
+  text-align: left;
+color: #000;
+  margin: 20px;
+}
+
+.temperatura,
+.umidade {
+  margin: 5px;
+  margin-left: 20px;
+  width: 75%;
+}
+
+.cor-alerta {
+  width: 20%;
+  height: 50%;
+ position: absolute;
+ left: 30%;
+ top: 0%;
+
+  /* background-color: #c7c7c7; */
+}
+
+.btns-dash {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.graph {
+  width: 80%;
+  margin: auto;
+  padding-top: 45px;
+}
+
+.btn-chart {
+  font-family: "Exo 2", sans-serif;
+  border: 0;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 10px 15px;
+  color: white;
+  background-color: #e6005a;
+  margin: 5px;
+}
+
+
+.voltar{
+  background-color: #FF5100;
+}
+
+
+#alertas p {
+text-align:center;
+
+}
+
+.titulo_graf {
+  position: absolute;
+  top: 84.1%;
+  left: 57.5%;
+  color: #FF5100;
+}
+
+.titulo_grif {
+  position: absolute;
+  top: 84.1%;
+  left: 32.5%;
+  color: #FF5100;
+}

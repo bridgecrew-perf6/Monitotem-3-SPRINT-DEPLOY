@@ -4,11 +4,11 @@ function buscarUltimasMedidas(req, res) {
 
     const limite_linhas = 7;
 
-    var id_totem = req.params.id_totem;
+    var idTotem = req.params.idTotem;
 
     console.log(`Recuperando as ultimas ${limite_linhas} medidas`);
 
-    medidaModel.buscarUltimasMedidas(id_totem, limite_linhas).then(function (resultado) {
+    medidaModel.buscarUltimasMedidas(idTotem, limite_linhas).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
@@ -24,11 +24,11 @@ function buscarUltimasMedidas(req, res) {
 
 function buscarMedidasEmTempoReal(req, res) {
 
-    var id_totem = req.params.id_totem;
+    var idTotem = req.params.idTotem;
 
     console.log(`Recuperando medidas em tempo real`);
 
-    medidaModel.buscarMedidasEmTempoReal(id_totem).then(function (resultado) {
+    medidaModel.buscarMedidasEmTempoReal(idTotem).then(function (resultado) {
         if (resultado.length > 0) {
             res.status(200).json(resultado);
         } else {

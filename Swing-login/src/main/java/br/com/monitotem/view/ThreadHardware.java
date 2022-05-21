@@ -93,7 +93,7 @@ public class ThreadHardware extends javax.swing.JFrame {
                     pstm.setString(3, pc.getSistema().getTempoDeAtividade().toString());
                     pstm.setString(4, formatter.format(LocalDateTime.now()));
                     pstm.setString(5, "FUNCIONANDO");
-                    pstm.setInt(6, 44);
+                    pstm.setInt(6, 48);
                     pstm.setInt(7, (int) ((pc.getMemoria().getDisponivel() * 100) / pc.getMemoria().getTotal()));
 
                     pstm.execute();
