@@ -3,7 +3,7 @@ var contador = 0;
 function abrir() {
   contador++;
   if (contador == 1) {
-    document.getElementById("abrirMenu").style.width = "20%";
+    document.getElementById("abrirMenu").style.width = "18%";
     document.getElementById("menu").style.margin = "0px 0px 0px -70%";
     document.getElementById("user").style.fontSize = "160px";
     document.getElementById("option1").classList.add("active");
@@ -51,7 +51,7 @@ function listarTotem() {
       let divDados = document.createElement("div");
       let buttonEditar = document.createElement("button");
       let buttonExcluir = document.createElement("button");
-      let divbuttons = document.createElement("div");
+      let divButtons = document.createElement("div");
       let inputSistema = document.createElement("input");
       let inputFabricante = document.createElement("input");
       let inputIptotem = document.createElement("input");
@@ -70,6 +70,7 @@ function listarTotem() {
       divIconeModal.setAttribute("class", "divIconeModal");
       divInputsModal.setAttribute("class", "divInputsModal");
       divButtonsModal.setAttribute("class", "divButtonsModal");
+      divButtons.setAttribute("class", "divButtons");
       buttonCancelar.setAttribute("class", "buttonCancelar");
       buttonSalvar.setAttribute("class", "buttonSalvar");
 
@@ -144,9 +145,9 @@ function listarTotem() {
 
       divDados.append(idTotens, sistema, fabricante, ipTotem);
 
-      divbuttons.append(buttonEditar, buttonExcluir);
+      divButtons.append(buttonEditar, buttonExcluir);
 
-      content.append(divIcone, divDados, divbuttons);
+      content.append(divIcone, divDados, divButtons);
 
       containerTotem.appendChild(content);
     }

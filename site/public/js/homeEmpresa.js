@@ -12,7 +12,7 @@ var contador = 0;
 function abrir() {
   contador++;
   if (contador == 1) {
-    document.getElementById("abrirMenu").style.width = "20%";
+    document.getElementById("abrirMenu").style.width = "18%";
     document.getElementById("menu").style.margin = "0px 0px 0px -70%";
     document.getElementById("user").style.fontSize = "160px";
     document.getElementById("option1").classList.add("active");

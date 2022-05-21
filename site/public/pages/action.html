@@ -20,7 +20,6 @@
   <link rel="shortcut icon" href="./assets/totemCerto-2.png" type="image/x-icon">
 
   <script src="../js/dashboard.js"></script>
-  <link rel="stylesheet" href="../css/homedashboard.css" />
   <script src="https://www.chartjs.org/dist/2.8.0/Chart.min.js"></script>
   <title>Monitotem - Dashboard</title>
 </head>
@@ -67,34 +66,33 @@
   </div>
   <div class="container_action">
     <div class="processos_action">
-      <div onclick="abrirModal()" class="top_processos">
-        <span>0<span>%</span></span>
-        <p>Processo 1</p>
+
+
+      <div class="bloco_emergencia">
+        <h1>Emergência</h1>
+        <h2>+80%</h2>
       </div>
-      <div onclick="abrirModal()" class="top_processos">
-        <span>0<span>%</span></span>
-        <p>Processo 2</p>
+      <div class="bloco_alerta">
+        <h1>Alerta</h1>
+        <h2>60-80%</h2>
       </div>
-      <div onclick="abrirModal()" class="top_processos">
-        <span>0<span>%</span></span>
-        <p>Processo 3</p>
+      <div class="bloco_ok">
+        <h1>OK</h1>
+        <h2>0-60%</h2>
       </div>
+
     </div>
     <div class="graficos_action">
       <div class="grafico_ram_cpu">
-        <div class="grafico_ram">
-          <h1>RAM</h1>
-          <canvas id="chartRam" height="70"></canvas>
-        </div>
         <div class="grafico_cpu">
           <h1>CPU</h1>
-          <canvas id="chartCpu" height="70"></canvas>
+          <canvas id="chartCpu"></canvas>
 
         </div>
       </div>
       <div class="grafico_disco">
         <h1>Disco</h1>
-        <div class="chartDisco"><span id="poercentDisc" > </span><canvas id="chartDisco"></canvas></div>
+        <div class="chartDisco"><span id="poercentDisc"> </span><canvas id="chartDisco"></canvas></div>
 
         <div class="buttons-action">
           <button onclick="obterDadosGrafico(48)">Limpar cache</button>
@@ -144,274 +142,274 @@
 
   window.onload = obterDadosGrafico(48);
 
- 
 
-    //verificar_autenticacao();
 
-    // altere aqui como os dados serão exibidos
-    // e como são recuperados do BackEnd
-    function obterDadosGrafico(idTotem) {
+  //verificar_autenticacao();
 
-        if (proximaAtualizacao != undefined) {
-            clearTimeout(proximaAtualizacao);
-        }
+  // altere aqui como os dados serão exibidos
+  // e como são recuperados do BackEnd
+  function obterDadosGrafico(idTotem) {
 
-        fetch(`/medidas/ultimas/${idTotem}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
-                    resposta.reverse();
-
-                    plotarGrafico(resposta, idTotem);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
+    if (proximaAtualizacao != undefined) {
+      clearTimeout(proximaAtualizacao);
     }
 
-    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
-    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
-    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
-    function plotarGrafico(resposta, idTotem) {
-        console.log('iniciando plotagem do gráfico...');
+    fetch(`/medidas/ultimas/${idTotem}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (resposta) {
+          console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+          resposta.reverse();
 
-        var dados = {
-            labels: [],
-            datasets: [
-                {
-                    yAxisID: 'y-cpu',
-                    label: 'cpu',
-                    borderColor: '#32B9CD',
-                    backgroundColor: '#32b9cd8f',
-                    fill: true,
-                    data: []
-                }
-            ]
-        };
-
-        for (i = 0; i < resposta.length; i++) {
-            var registro = resposta[i];
-            dados.labels.push(registro.momento_grafico);
-            dados.datasets[0].data.push(registro.cpu);
-        }
-
-        console.log(JSON.stringify(dados));
-
-        var ctx = chartCpu.getContext('2d');
-        window.grafico_linha = Chart.Line(ctx, {
-            data: dados,
-            options: {
-                responsive: true,
-                animation: { duration: 500 },
-                hoverMode: 'index',
-                stacked: false,
-                title: {
-                    display: false,
-                    text: 'Dados capturados'
-                },
-                scales: {
-                    yAxes: [ {
-                        type: 'linear',
-                        display: false,
-                        position: 'right',
-                        id: 'y-cpu',
-                        ticks: {
-                            beginAtZero: true,
-                            max: 100,
-                            min: 0
-                        },
-
-                        gridLines: {
-                            drawOnChartArea: false,
-                        },
-                    }],
-                }
-            }
+          plotarGrafico(resposta, idTotem);
         });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
+  }
 
-        setTimeout(() => atualizarGrafico(idTotem, dados), 2000);
+  // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+  // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+  // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+  function plotarGrafico(resposta, idTotem) {
+    console.log('iniciando plotagem do gráfico...');
+
+    var dados = {
+      labels: [],
+      datasets: [
+        {
+          yAxisID: 'y-cpu',
+          label: 'cpu',
+          borderColor: '#32B9CD',
+          backgroundColor: '#32b9cd8f',
+          fill: true,
+          data: []
+        }
+      ]
+    };
+
+    for (i = 0; i < resposta.length; i++) {
+      var registro = resposta[i];
+      dados.labels.push(registro.momento_grafico);
+      dados.datasets[0].data.push(registro.cpu);
     }
 
+    console.log(JSON.stringify(dados));
 
-    // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
-    // buscando a última medida inserida em tabela contendo as capturas, 
+    var ctx = chartCpu.getContext('2d');
+    window.grafico_linha = Chart.Line(ctx, {
+      data: dados,
+      options: {
+        responsive: true,
+        animation: { duration: 500 },
+        hoverMode: 'index',
+        stacked: false,
+        title: {
+          display: false,
+          text: 'Dados capturados'
+        },
+        scales: {
+          yAxes: [{
+            type: 'linear',
+            display: false,
+            position: 'right',
+            id: 'y-cpu',
+            ticks: {
+              beginAtZero: true,
+              max: 100,
+              min: 0
+            },
 
-    //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
-    //     Para ajustar o "select", ajuste o comando sql em src/models
-    function atualizarGrafico(idTotem, dados) {
+            gridLines: {
+              drawOnChartArea: false,
+            },
+          }],
+        }
+      }
+    });
 
-        fetch(`/medidas/tempo-real/${idTotem}`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (novoRegistro) {
-
-                    console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
-                    console.log(`Dados atuais do gráfico: ${dados}`);
-
-
-                    if (novoRegistro[0].cpu >= 80 ) {
-
-                            dados.datasets[0].backgroundColor = '#ff0000'
-
-                            }
-                            else if (novoRegistro[0].cpu >= 50 ) {
-
-                            dados.datasets[0].backgroundColor = '#f1c40f'
-
-                            }
-                            else{
-                            dados.datasets[0].backgroundColor = '#008000'
-                            }
-
-
-                    // tirando e colocando valores no gráfico
-                    dados.labels.shift(); // apagar o primeiro
-                    dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
-                    
-                    dados.datasets[0].data.shift();  // apagar o primeiro de cpu
-                    dados.datasets[0].data.push(novoRegistro[0].cpu); // incluir uma nova medida de umidad
-                    window.grafico_linha.update();
-
-                    // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                    proximaAtualizacao = setTimeout(() => atualizarGrafico(idTotem, dados), 2000);
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-                // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(idTotem, dados), 2000);
-            }
-        })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-            });
+    setTimeout(() => atualizarGrafico(idTotem, dados), 2000);
+  }
 
 
+  // Esta função *atualizarGrafico* atualiza o gráfico que foi renderizado na página,
+  // buscando a última medida inserida em tabela contendo as capturas, 
 
-  // Chart Memory
+  //     Se quiser alterar a busca, ajuste as regras de negócio em src/controllers
+  //     Para ajustar o "select", ajuste o comando sql em src/models
+  function atualizarGrafico(idTotem, dados) {
 
+    fetch(`/medidas/tempo-real/${idTotem}`, { cache: 'no-store' }).then(function (response) {
+      if (response.ok) {
+        response.json().then(function (novoRegistro) {
 
-//  setInterval( function getMemoryTotalRam() {
-//     fetch("/usuarios/getMemoryTotalRam").then(function (resposta) {
-//         console.log("ESTOU NO THEN DO getMemoryTotalRam()!")
-//         if (resposta.ok) {
-//             resposta.json().then(function (resposta) {
-//                 console.log("Dados recebidos do usuario: ", JSON.stringify(resposta));
-
-//                 memoryram = resposta[resposta.indexOf(':') + 1]//não sei pq mas isso funciona
-//                 console.log(memoryram.RamEmUsobd);
-//                 sessionStorage.MEMORYRAM = memoryram.RamEmUsobd;
-
-//             });
-//         } else {
-//             console.log("Dados recebidos: ", JSON.stringify(resposta));
-//         }
-//     }).catch(function (erro) {
-//         console.log(erro);
-//     })
-//     return false;
-// },2000);
+          console.log(`Dados recebidos: ${JSON.stringify(novoRegistro)}`);
+          console.log(`Dados atuais do gráfico: ${dados}`);
 
 
+          if (novoRegistro[0].cpu >= 80) {
 
-//   nomeUsuario.innerHTML = `${sessionStorage.NOME_USUARIO}`;
- 
+            dados.datasets[0].backgroundColor = '#ff0000'
 
-//   poercentDisc.innerHTML =  sessionStorage.MEMORYRAM;
-//   const disco = document.getElementById('chartDisco');
-//   const chartDisco = new Chart(disco, {
-//     type: 'doughnut',
-//     data: {
-//       labels: ['Red', 'Blue'],
-//       datasets: [{
-//         label: '# of Votes',
-//         data: [10, Number(sessionStorage.MEMORYRAM)],
-//         backgroundColor: [
-//           '#2855b5',
-//           '#051e55',
+          }
+          else if (novoRegistro[0].cpu >= 50) {
 
-//         ],
-//         borderColor: [
-//           '#2855b7',
+            dados.datasets[0].backgroundColor = '#f1c40f'
 
-//         ],
-//       }]
-//     },
-//   });
+          }
+          else {
+            dados.datasets[0].backgroundColor = '#008000'
+          }
 
 
-  // const ram = document.getElementById('chartRam');
-  // const chartRam = new Chart(ram, {
-  //   type: 'line',
-  //   data: {
-  //     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-  //     datasets: [{
-  //       label: '# of Votes',
-  //       data: [Number(sessionStorage.MEMORYRAM), Number(sessionStorage.MEMORYRAM), Number(sessionStorage.MEMORYRAM), Number(sessionStorage.MEMORYRAM),Number(sessionStorage.MEMORYRAM), Number(sessionStorage.MEMORYRAM)],
-  //       backgroundColor: [
-  //         'rgba(255, 99, 132, 0.2)',
-  //         'rgba(54, 162, 235, 0.2)',
-  //         'rgba(255, 206, 86, 0.2)',
-  //         'rgba(75, 192, 192, 0.2)',
-  //         'rgba(153, 102, 255, 0.2)',
-  //         'rgba(255, 159, 64, 0.2)'
-  //       ],
-  //       borderColor: [
-  //         'rgba(255, 99, 132, 1)',
-  //         'rgba(54, 162, 235, 1)',
-  //         'rgba(255, 206, 86, 1)',
-  //         'rgba(75, 192, 192, 1)',
-  //         'rgba(153, 102, 255, 1)',
-  //         'rgba(255, 159, 64, 1)'
-  //       ],
-  //     }]
-  //   },
-  //   options: {
-  //     scales: {
-  //       y: {
+          // tirando e colocando valores no gráfico
+          dados.labels.shift(); // apagar o primeiro
+          dados.labels.push(novoRegistro[0].momento_grafico); // incluir um novo momento
 
-  //       }
-  //     }
-  //   }
-  // });
+          dados.datasets[0].data.shift();  // apagar o primeiro de cpu
+          dados.datasets[0].data.push(novoRegistro[0].cpu); // incluir uma nova medida de umidad
+          window.grafico_linha.update();
 
-  // const cpu = document.getElementById('chartCpu');
-  // const chartCpu = new Chart(cpu, {
-  //   type: 'line',
-  //   data: {
-  //     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-  //     datasets: [{
-  //       label: '# of Votes',
-  //       data: [12, 2, 50, 70, 10, 100],
-  //       backgroundColor: [
-  //         '#2855b',
-  //         '#2855b',
-  //         '#2855b',
-  //         '#2855b',
-  //         '#2855b'
-  //       ],
-  //       borderColor: [
-  //         '#2855b',
-  //         '#2855b',
-  //         '#2855b',
-  //         '#2855b',
-  //         '#2855b'
+          // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+          proximaAtualizacao = setTimeout(() => atualizarGrafico(idTotem, dados), 2000);
+        });
+      } else {
+        console.error('Nenhum dado encontrado ou erro na API');
+        // Altere aqui o valor em ms se quiser que o gráfico atualize mais rápido ou mais devagar
+        proximaAtualizacao = setTimeout(() => atualizarGrafico(idTotem, dados), 2000);
+      }
+    })
+      .catch(function (error) {
+        console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+      });
 
-  //       ],
-  //     }]
-  //   },
-  //   options: {
-  //     scales: {
-  //       y: {
-  //         beginAtZero: true
-  //       }
-  //     }
-  //   },
-  // });
 
-    }
+
+    // Chart Memory
+
+
+    //  setInterval( function getMemoryTotalRam() {
+    //     fetch("/usuarios/getMemoryTotalRam").then(function (resposta) {
+    //         console.log("ESTOU NO THEN DO getMemoryTotalRam()!")
+    //         if (resposta.ok) {
+    //             resposta.json().then(function (resposta) {
+    //                 console.log("Dados recebidos do usuario: ", JSON.stringify(resposta));
+
+    //                 memoryram = resposta[resposta.indexOf(':') + 1]//não sei pq mas isso funciona
+    //                 console.log(memoryram.RamEmUsobd);
+    //                 sessionStorage.MEMORYRAM = memoryram.RamEmUsobd;
+
+    //             });
+    //         } else {
+    //             console.log("Dados recebidos: ", JSON.stringify(resposta));
+    //         }
+    //     }).catch(function (erro) {
+    //         console.log(erro);
+    //     })
+    //     return false;
+    // },2000);
+
+
+
+    //   nomeUsuario.innerHTML = `${sessionStorage.NOME_USUARIO}`;
+
+
+    //   poercentDisc.innerHTML =  sessionStorage.MEMORYRAM;
+    //   const disco = document.getElementById('chartDisco');
+    //   const chartDisco = new Chart(disco, {
+    //     type: 'doughnut',
+    //     data: {
+    //       labels: ['Red', 'Blue'],
+    //       datasets: [{
+    //         label: '# of Votes',
+    //         data: [10, Number(sessionStorage.MEMORYRAM)],
+    //         backgroundColor: [
+    //           '#2855b5',
+    //           '#051e55',
+
+    //         ],
+    //         borderColor: [
+    //           '#2855b7',
+
+    //         ],
+    //       }]
+    //     },
+    //   });
+
+
+    // const ram = document.getElementById('chartRam');
+    // const chartRam = new Chart(ram, {
+    //   type: 'line',
+    //   data: {
+    //     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    //     datasets: [{
+    //       label: '# of Votes',
+    //       data: [Number(sessionStorage.MEMORYRAM), Number(sessionStorage.MEMORYRAM), Number(sessionStorage.MEMORYRAM), Number(sessionStorage.MEMORYRAM),Number(sessionStorage.MEMORYRAM), Number(sessionStorage.MEMORYRAM)],
+    //       backgroundColor: [
+    //         'rgba(255, 99, 132, 0.2)',
+    //         'rgba(54, 162, 235, 0.2)',
+    //         'rgba(255, 206, 86, 0.2)',
+    //         'rgba(75, 192, 192, 0.2)',
+    //         'rgba(153, 102, 255, 0.2)',
+    //         'rgba(255, 159, 64, 0.2)'
+    //       ],
+    //       borderColor: [
+    //         'rgba(255, 99, 132, 1)',
+    //         'rgba(54, 162, 235, 1)',
+    //         'rgba(255, 206, 86, 1)',
+    //         'rgba(75, 192, 192, 1)',
+    //         'rgba(153, 102, 255, 1)',
+    //         'rgba(255, 159, 64, 1)'
+    //       ],
+    //     }]
+    //   },
+    //   options: {
+    //     scales: {
+    //       y: {
+
+    //       }
+    //     }
+    //   }
+    // });
+
+    // const cpu = document.getElementById('chartCpu');
+    // const chartCpu = new Chart(cpu, {
+    //   type: 'line',
+    //   data: {
+    //     labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+    //     datasets: [{
+    //       label: '# of Votes',
+    //       data: [12, 2, 50, 70, 10, 100],
+    //       backgroundColor: [
+    //         '#2855b',
+    //         '#2855b',
+    //         '#2855b',
+    //         '#2855b',
+    //         '#2855b'
+    //       ],
+    //       borderColor: [
+    //         '#2855b',
+    //         '#2855b',
+    //         '#2855b',
+    //         '#2855b',
+    //         '#2855b'
+
+    //       ],
+    //     }]
+    //   },
+    //   options: {
+    //     scales: {
+    //       y: {
+    //         beginAtZero: true
+    //       }
+    //     }
+    //   },
+    // });
+
+  }
 </script>
 
 
