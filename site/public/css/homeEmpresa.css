@@ -490,7 +490,7 @@ a {
 }
 
 #fundoModal {
-  height: 100%;
+  height: 100%; 
   width: 100%;
   position: absolute;
   background-color: rgba(0, 0, 0, 0.607);
@@ -532,7 +532,7 @@ a {
   z-index: 1;
 }
 
-.title_lista_usuarios{
+.title_lista_usuarios {
   margin-left: 100px;
 }
 

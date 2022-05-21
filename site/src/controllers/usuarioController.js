@@ -171,6 +171,7 @@ function removerUsuario(req, res) {
     });
 }
 
+
 function atualizarUsuario(req, res) {
   var id = req.params.idUsuario;
   var nome = req.body.nomeServer;
@@ -182,11 +183,6 @@ function atualizarUsuario(req, res) {
   console.log("CONTROLLER: ", email);
   console.log("CONTROLLER: ", telefone);
 
-  if (nome == undefined) {
-    res.status(400).send("Seu nome está undefined!");
-  } else if (email == undefined) {
-    res.status(400).send("Seu email está undefined!");
-  } else {
     usuarioModel
       .updateUsuario(id, nome, email, telefone)
       .then(function (resultado) {
@@ -201,7 +197,8 @@ function atualizarUsuario(req, res) {
         res.status(10).json(erro.sqlMessage);
       });
   }
-}
+
+
 
 // Reiniciar a Máquina
 

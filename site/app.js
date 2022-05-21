@@ -11,6 +11,7 @@ var app = express();
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
 var medidasRouter = require("./src/routes/medidas");
+var totemRouter = require("./src/routes/totem");
 
 
 
@@ -23,6 +24,9 @@ app.use(cors());
 app.use("/", indexRouter);
 app.use("/usuarios", usuarioRouter);
 app.use("/medidas", medidasRouter)
+app.use("/totem", totemRouter);
+
+
 
 app.listen(PORTA, function () {
     console.log(`Servidor do site está rodando rodando: http://localhost:${PORTA} \n
