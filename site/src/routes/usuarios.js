@@ -48,6 +48,10 @@ router.put("/:idUsuario", function (req, res) {
   usuarioController.atualizarUsuario(req, res);
 });
 
+router.get("/getMemoryTotalRam", function (req,res){
+  usuarioController.getMemoryTotalRam(req, res)
+});
+
 
 
 module.exports = router;
