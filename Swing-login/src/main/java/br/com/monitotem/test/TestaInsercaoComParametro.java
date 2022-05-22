@@ -1,5 +1,5 @@
 package br.com.monitotem.test;
-import br.com.monitotem.service.ConnectionFactory;
+import br.com.monitotem.service.ConnectionFactorySQL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +12,7 @@ public class TestaInsercaoComParametro {
         
         // AUTO CLOSABLE ativado
         
-           ConnectionFactory connectionFactory = new ConnectionFactory();
+           ConnectionFactorySQL connectionFactory = new ConnectionFactorySQL();
       try( Connection con = connectionFactory.recuperarConexao()){
         // Esse comando é para não deixar inserir do banco sem meu controle
         con.setAutoCommit(false);
