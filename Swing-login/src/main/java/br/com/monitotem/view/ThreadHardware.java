@@ -50,7 +50,7 @@ public class ThreadHardware extends javax.swing.JFrame {
         
         Integer valueReinicied = null;
 
-         String sql = "select reiniciarTotem from totem where idTotem = 49;";
+         String sql = "select reiniciarTotem from totem where idTotem = 48;";
          
          
                     try ( PreparedStatement pstm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {

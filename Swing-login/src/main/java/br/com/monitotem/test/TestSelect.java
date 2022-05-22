@@ -63,7 +63,7 @@ public class TestSelect {
 
                 if (NumberReboot == 1) {
 
-                    String sql2 = "UPDATE totem SET reiniciarTotem = 0 WHERE idTotem = 49";
+                    String sql2 = "UPDATE totem SET reiniciarTotem = 0 WHERE idTotem = 48";
 
                     try ( PreparedStatement pstm = con.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS)) {
 

@@ -58,9 +58,9 @@ public class TotemDAO {
                     pstm2.setString(7, infoMaquina.getHostAddress());
                     pstm2.setString(8, LocalDateTime.now().toString());
                     pstm2.setInt(9, idEmpresa);
-
+                        
                     pstm2.execute();
-
+                    System.out.println("adicionando maquina");
                     try ( ResultSet rs2 = pstm2.getGeneratedKeys()) {
                         while (rs2.next()) {
                             totem.setIdTotem(rs2.getInt(1));
