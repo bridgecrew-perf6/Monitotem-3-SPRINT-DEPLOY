@@ -6,6 +6,7 @@ import br.com.monitotem.dao.TotemDAO;
 import br.com.monitotem.service.ConnectionFactorySQL;
 import br.com.monitotem.service.Slack;
 import br.com.monitotem.entities.Totem;
+import br.com.monitotem.service.ConnectionFactoryMySQL;
 import br.com.monitotem.test.TestSelect;
 import com.github.britooo.looca.api.core.Looca;
 import java.awt.Color;
@@ -207,6 +208,10 @@ public class Cadastro extends javax.swing.JFrame {
                     Totem prod = new Totem(looca, infoMaquina, ip);
 
                     try ( java.sql.Connection con = new ConnectionFactorySQL().recuperarConexao()) {
+                        TotemDAO totemDao = new TotemDAO(con);
+                        totemDao.salvar(prod, validar.getIdEmpresa());
+                    }
+                    try ( java.sql.Connection con = new ConnectionFactoryMySQL().recuperarConexao()) {
                         TotemDAO totemDao = new TotemDAO(con);
                         totemDao.salvar(prod, validar.getIdEmpresa());
                     }

@@ -5,6 +5,7 @@ import br.com.monitotem.service.Slack;
 import br.com.monitotem.entities.Totem;
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.memoria.Memoria;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,36 +41,73 @@ public class ThreadHardware extends javax.swing.JFrame {
         getMemoriaTxt();
         getProcessadorTxt();
         getProcessosTxt();
-
+        reiniciaTotem();
     }
-    
-    public void reiniciaTotem() throws SQLException{
-        
-          ConnectionFactorySQL connectionFactory = new ConnectionFactorySQL();
-        Connection con = connectionFactory.recuperarConexao();
-        
-        Integer valueReinicied = null;
 
-         String sql = "select reiniciarTotem from totem where idTotem = 48;";
-         
-         
-                    try ( PreparedStatement pstm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+    public void reiniciaTotem() throws SQLException {
+
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+
+                Integer NumberReboot = 0;
+
+                ConnectionFactorySQL connectionFactory = new ConnectionFactorySQL();
+                Connection con = null;
+                try {
+                    con = connectionFactory.recuperarConexao();
+                } catch (SQLException ex) {
+                    ex.getMessage();
+                }
+
+                String sql = "select reiniciarTotem from totem where idTotem = 52";
+
+                try ( PreparedStatement pstm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
                     pstm.execute();
 
-                    try ( ResultSet rs = pstm.getGeneratedKeys()) {
+                    try ( ResultSet rs = pstm.getResultSet()) {
                         while (rs.next()) {
-                           valueReinicied = rs.getInt(1);
-                            System.out.println(valueReinicied);
+                            NumberReboot = rs.getInt(1);
+                            System.out.println(NumberReboot);
                         }
                     }
 
+                    System.out.println();
+
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
                 }
-    
-    
+
+                if (NumberReboot == 1) {
+
+                    String sql2 = "UPDATE totem SET reiniciarTotem = 0 WHERE idTotem = 52";
+
+                    try ( PreparedStatement pstm = con.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS)) {
+
+                        pstm.execute();
+
+                        System.out.println();
+
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    }
+                    try {
+                        Runtime.getRuntime().exec("reboot");
+                    } catch (IOException ex) {
+                        ex.getMessage();
+                    }
+
+                    System.out.println("Deu certo carambaaa");
+
+                }
+
+            }
+        }, 2, 5000);
+
     }
 
-     private void sendInformation() throws SQLException {
+    private void sendInformation() throws SQLException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         ConnectionFactorySQL connectionFactory = new ConnectionFactorySQL();
@@ -80,6 +118,7 @@ public class ThreadHardware extends javax.swing.JFrame {
         String sql = "INSERT INTO registro(usoMemoria,usoCpu,tempoAtividade,dataRegistro,statusRegistro, fk_totem,memoriaTotal) VALUES(?,?,?,?,?,?,?)";
 
         timer.scheduleAtFixedRate(new TimerTask() {
+
             @Override
             public void run() {
 
@@ -87,31 +126,27 @@ public class ThreadHardware extends javax.swing.JFrame {
 
                 try ( PreparedStatement pstm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
                     System.out.println("enviando");
-                    
+
                     pstm.setInt(1, (int) ((pc.getMemoria().getEmUso() * 100) / pc.getMemoria().getTotal()) + 1);
                     pstm.setInt(2, pc.getProcessador().getUso().intValue());
                     pstm.setString(3, pc.getSistema().getTempoDeAtividade().toString());
                     pstm.setString(4, formatter.format(LocalDateTime.now()));
                     pstm.setString(5, "FUNCIONANDO");
-                    pstm.setInt(6, 48);
+                    pstm.setInt(6, 52);
                     pstm.setInt(7, (int) ((pc.getMemoria().getDisponivel() * 100) / pc.getMemoria().getTotal()));
 
                     if (((pc.getMemoria().getEmUso() * 100) / pc.getMemoria().getTotal()) + 1 > 70) {
-                        
+
                         SlackAPI.postMessage("xoxb-3431609768566-3438312290354-XJY3Bz1jDMI5IH6YUZm7g2dp", "alertas", "Cuidado sua memoria esta em nivel emergencial");
-                        
+
                     }
-                    
+
                     if (pc.getProcessador().getUso().intValue() > 60) {
-                        
+
                         SlackAPI.postMessage("xoxb-3431609768566-3438312290354-XJY3Bz1jDMI5IH6YUZm7g2dp", "alertas", "Cuidado seu processador esta em nivel emergencial");
-                        
+
                     }
-                    
-                   
-                    
-                   
-                    
+
                     pstm.execute();
 
                     try ( ResultSet rs = pstm.getGeneratedKeys()) {
@@ -127,7 +162,6 @@ public class ThreadHardware extends javax.swing.JFrame {
             }
         }, 2, 3000);
     }
-
 
     private void getMemoriaTxt() {
         Timer timer = new Timer();
@@ -145,7 +179,6 @@ public class ThreadHardware extends javax.swing.JFrame {
 
                 Double memoria = Double.parseDouble(String.format("%s", memoriaTotal));
                 Double memoriaUso = Double.parseDouble(String.format("%s", memoriaEmUso));
-
 
 //                if (memoriaEmUso >= limite) {
 //

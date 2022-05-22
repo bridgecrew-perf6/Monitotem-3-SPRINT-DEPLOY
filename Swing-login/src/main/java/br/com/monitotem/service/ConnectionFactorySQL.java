@@ -30,23 +30,6 @@ public class ConnectionFactorySQL {
         this.dataSource = comboPooledDataSource;
     }
     
-    public ConnectionFactoryMySQL(){
-
-        ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource();
-        comboPooledDataSource.setDriverClass("com.mysql.cj.jdbc.Driver");
-        comboPooledDataSource.setJdbcUrl("jdbc:mysql://localhost:3306/monitotem");
-        comboPooledDataSource.setUser("root");
-        comboPooledDataSource.setPassword("Samuckqadev6977+-");
-
-        // limitando quantidade de conexões feitas por vez
-        comboPooledDataSource.setMaxPoolSize(15);
-
-        this.dataSource = comboPooledDataSource;
-    }
-    
-      public Connection recuperarConexaoMySql() throws SQLException {
-        return this.dataSource.getConnection();
-    }
 
     public Connection recuperarConexao() throws SQLException {
         return this.dataSource.getConnection();
