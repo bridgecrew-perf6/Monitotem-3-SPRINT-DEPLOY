@@ -1,6 +1,6 @@
 package br.com.monitotem.dao;
 
-import br.com.monitotem.service.ConnectionFactory;
+import br.com.monitotem.service.ConnectionFactorySQL;
 import br.com.monitotem.entities.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,7 +14,7 @@ public class UserDao {
     }
     
     public Usuario validarLogin(Usuario user) throws SQLException {
-        ConnectionFactory connectionFactory = new ConnectionFactory();
+        ConnectionFactorySQL connectionFactory = new ConnectionFactorySQL();
         Connection con = connectionFactory.recuperarConexao();
         
         String sql = "SELECT emailUsuario, senhaUsuario, fk_empresa FROM usuario where emailUsuario =? AND senhaUsuario = ?";

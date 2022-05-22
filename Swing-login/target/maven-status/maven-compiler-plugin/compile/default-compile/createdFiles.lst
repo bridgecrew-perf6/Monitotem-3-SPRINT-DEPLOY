@@ -21,17 +21,25 @@ br\com\monitotem\service\ConexaoBanco.class
 br\com\monitotem\view\ThreadHardware$4.class
 br\com\monitotem\dao\TotemDAO.class
 br\com\monitotem\view\InfoHardware$1.class
+br\com\monitotem\service\ConnectionFactorySQL.class
 br\com\monitotem\view\ThreadHardware$1.class
 br\com\monitotem\view\Cadastro$3.class
 br\com\monitotem\view\Menu$2.class
 br\com\monitotem\view\Cadastro.class
 br\com\monitotem\view\ThreadHardware.class
+br\com\monitotem\service\ConnectionFactoryMySQL.class
 br\com\monitotem\test\TestaListagem.class
 br\com\monitotem\test\TestaInsercaoComParametro.class
 br\com\monitotem\service\Slack.class
+<<<<<<< HEAD
 br\com\monitotem\service\TotemService.class
 br\com\monitotem\view\Cadastro$4.class
 br\com\monitotem\view\InfoHardware$2.class
 br\com\monitotem\view\Menu$1.class
 br\com\monitotem\service\cnn.class
+=======
+br\com\monitotem\view\Cadastro$4.class
+br\com\monitotem\view\InfoHardware$2.class
+br\com\monitotem\view\Menu$1.class
+>>>>>>> 92672d347e0e171bb286e765d21e3af292105ed3
 br\com\monitotem\view\ThreadHardware$7.class

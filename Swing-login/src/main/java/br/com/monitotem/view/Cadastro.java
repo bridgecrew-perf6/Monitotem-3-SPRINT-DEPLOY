@@ -3,7 +3,7 @@ package br.com.monitotem.view;
 import br.com.monitotem.entities.Usuario;
 import br.com.monitotem.dao.UserDao;
 import br.com.monitotem.dao.TotemDAO;
-import br.com.monitotem.service.ConnectionFactory;
+import br.com.monitotem.service.ConnectionFactorySQL;
 import br.com.monitotem.service.Slack;
 import br.com.monitotem.entities.Totem;
 import br.com.monitotem.test.TestSelect;
@@ -206,7 +206,7 @@ public class Cadastro extends javax.swing.JFrame {
 
                     Totem prod = new Totem(looca, infoMaquina, ip);
 
-                    try ( java.sql.Connection con = new ConnectionFactory().recuperarConexao()) {
+                    try ( java.sql.Connection con = new ConnectionFactorySQL().recuperarConexao()) {
                         TotemDAO totemDao = new TotemDAO(con);
                         totemDao.salvar(prod, validar.getIdEmpresa());
                     }

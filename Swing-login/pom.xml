@@ -8,7 +8,7 @@
     
     
     
-         <build>
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -38,37 +38,41 @@
     </build>
         
     <dependencies>
-        
         <dependency>
-    <groupId>org.silentsoft</groupId>
-    <artifactId>slack-api</artifactId>
-    <version>0.1.1</version>
-</dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.29</version>
+        </dependency>
+        <dependency>
+            <groupId>org.silentsoft</groupId>
+            <artifactId>slack-api</artifactId>
+            <version>0.1.1</version>
+        </dependency>
         
         <dependency>
             <groupId>org.springframework</groupId> 
             <artifactId>spring-jdbc</artifactId>
-        <version>5.0.5.RELEASE</version> <!-- ou versão que já existir na .m2 local --> 
+            <version>5.0.5.RELEASE</version> <!-- ou versão que já existir na .m2 local --> 
         </dependency> 
         <dependency> 
             <groupId>org.apache.commons</groupId>
-        <artifactId>commons-dbcp2</artifactId> 
-        <version>2.5.0</version> <!-- ou versão que já existir na .m2 local --> 
+            <artifactId>commons-dbcp2</artifactId> 
+            <version>2.5.0</version> <!-- ou versão que já existir na .m2 local --> 
         </dependency>
         
         <!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
-<dependency>
-    <groupId>com.mchange</groupId>
-    <artifactId>c3p0</artifactId>
-    <version>0.9.5.4</version>
-</dependency>
+        <dependency>
+            <groupId>com.mchange</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.5.4</version>
+        </dependency>
 
-<!-- https://mvnrepository.com/artifact/com.mchange/mchange-commons-java -->
-<dependency>
-    <groupId>com.mchange</groupId>
-    <artifactId>mchange-commons-java</artifactId>
-    <version>0.2.16</version>
-</dependency>
+        <!-- https://mvnrepository.com/artifact/com.mchange/mchange-commons-java -->
+        <dependency>
+            <groupId>com.mchange</groupId>
+            <artifactId>mchange-commons-java</artifactId>
+            <version>0.2.16</version>
+        </dependency>
 
         
         

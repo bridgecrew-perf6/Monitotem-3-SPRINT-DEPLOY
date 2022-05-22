@@ -7,7 +7,7 @@ public class ConexaoBanco {
 
     public static void main(String[] args) throws SQLException {
 
-        ConnectionFactory connectionFactory = new ConnectionFactory();
+        ConnectionFactorySQL connectionFactory = new ConnectionFactorySQL();
         Connection con = connectionFactory.recuperarConexao();
 
         System.out.println("Fechando conexao!!");

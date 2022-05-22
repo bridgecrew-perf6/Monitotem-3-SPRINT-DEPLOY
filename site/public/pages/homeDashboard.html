@@ -23,151 +23,60 @@
 </head>
 
 <body>
-
-  <div class="dashboard">
-    <nav id="abrirMenu">
-      <div class="container_navbar">
-        <div id="menu" class="menu">
-          <i onclick="abrir()" class="fa-solid fa-bars"></i>
-        </div>
-        <div id="user" class="user">
-          <i class="fa-solid fa-circle-user"></i> <span id="nomeUsuario"> </span>
-        </div>
-        <div id="options_menu" class="options_menu">
-          <a onclick="fechar()" class="option activee" href="#"><i class="fa-solid fa-chart-column"></i>
-            <div id="option1" class="option_text">Painel</div>
-          </a>
-          <a onclick="fechar()" class="option" href="./action.html">
-            <i class="fa-solid fa-circle-exclamation"></i>
-            <div id="option2" class="option_text">Action</div>
-          </a>
-          <a onclick="fechar()" class="option" href="#action">
-            <i class="slack fa-brands fa-slack"></i>
-            <div id="option3" class="option_text">Slack</div>
-          </a>
-          <a onclick="fechar()" class="option" href="#action">
-            <i class="fa-solid fa-gear"></i>
-            <div id="option4" class="option_text">Ajustes</div>
-          </a>
-        </div>
-        <a onclick="fechar()" class="option" href="../index.html"> <i class="exit fa-solid fa-right-from-bracket"></i>
+  <nav id="abrirMenu">
+    <div class="container_navbar">
+      <div id="menu" class="menu">
+        <i onclick="abrir()" class="fa-solid fa-bars"></i>
+      </div>
+      <div id="user" class="user">
+        <i class="fa-solid fa-circle-user"></i> <span id="nomeUsuario"> </span>
+      </div>
+      <div id="options_menu" class="options_menu">
+        <a onclick="fechar()" class="option activee" href="#"><i class="fa-solid fa-chart-column"></i>
+          <div id="option1" class="option_text">Painel</div>
+        </a>
+        <a onclick="fechar()" class="option" href="./action.html">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          <div id="option2" class="option_text">Action</div>
+        </a>
+        <a onclick="fechar()" class="option" href="#action">
+          <i class="slack fa-brands fa-slack"></i>
+          <div id="option3" class="option_text">Slack</div>
+        </a>
+        <a onclick="fechar()" class="option" href="#action">
+          <i class="fa-solid fa-gear"></i>
+          <div id="option4" class="option_text">Ajustes</div>
         </a>
       </div>
-    </nav>
-    <div class="container_dashboard">
-      <div class="titulo_dashboard">
-        <p>Dashboard <span>visão geral</span></p>
-      </div>
-      <div class="body_dashboard">
-        <div class="blocos_status">
-          <h1>Status dos totens</h1>
-          <div class="bloco_emergencia">
-            <h1>Emergência</h1>
-            <h2>0 totens</h2>
-          </div>
-          <div class="bloco_alerta">
-            <h1>Alerta</h1>
-            <h2>0 totens</h2>
-          </div>
-          <div class="bloco_ok">
-            <h1>OK</h1>
-            <h2>0 totens</h2>
-          </div>
+      <a onclick="fechar()" class="option" href="../index.html"> <i class="exit fa-solid fa-right-from-bracket"></i>
+      </a>
+    </div>
+  </nav>
+  <div class="container_dashboard">
+    <div class="titulo">
+      <p>Home <span>Visão geral</span></p>
+    </div>
+    <div class="container_listagem_totens">
+      <div class="box_totens">
+        <div class="box_titulo">Listagem dos totens</div>
+        <div class="status_bar">
+          <p>ID</p>
+          <p>Status</p>
+          <p>Acão</p>
         </div>
 
-        <div class="info_totens">
-          <h1>Informação sobre os totens</h1>
-          <div class="chart_rosca"><span>40%</span><canvas id="myChart" width="10" height="10"></canvas></div>
-          <div class="info_texto">
-            <p>Total de totens: 0</p>
-            <p>Totens em alerta: 0</p>
-            <p>Totens instáveis: 0</p>
-          </div>
+        <div class="container_content">
+          
         </div>
 
-        <div class="lista_totens">
-          <h1>Listagem de totens</h1>
-          <div class="status_listagem">
-            <p>ID</p>
-            <p>Status</p>
-            <p>Acão</p>
-          </div>
-          <div class="container_itens">
-            <div class="totem_item">
-              <p>1</p>
-              <span>Instável</span>
-
-              <a href="./action.html">
-                <div> <i class="fa-solid fa-circle-exclamation"></i></div>
-              </a>
-            </div>
-          </div>
-          <div class="container_itens">
-            <div class="totem_item">
-              <p>2</p>
-              <span>Instável </span>
-
-              <a href="./action.html">
-                <div> <i class="fa-solid fa-circle-exclamation"></i></div>
-              </a>
-            </div>
-
-          </div>
-          <div class="container_itens">
-            <div class="totem_item">
-              <p>3</p>
-              <span>Instável </span>
-
-              <a href="./action.html">
-                <div> <i class="fa-solid fa-circle-exclamation"></i></div>
-              </a>
-            </div>
-          </div>
-          <div class="container_itens">
-            <div class="totem_item">
-              <p>4</p>
-              <span>Instável </span>
-
-              <a href="./action.html">
-                <div> <i class="fa-solid fa-circle-exclamation"></i></div>
-              </a>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
-  </div>
+
 </body>
 
 </html>
 
 <script>
-
-  nomeUsuario.innerHTML = `${sessionStorage.NOME_USUARIO}`
-
-  const ctx = document.getElementById("myChart");
-  var myChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-      labels: ['Uso', 'Livre'],
-      datasets: [{
-        label: '# of Votes',
-        data: [40, 60],
-        backgroundColor: [
-          '#286db5',
-          '#002954'
-        ],
-        borderColor: [
-          '#286db5',
-          '#002954',
-        ],
-        borderWidth: 1
-      }]
-    }
-  })
-</script>
-
-<script>
-
+  nomeUsuario.innerHTML = `${sessionStorage.NOME_USUARIO}`  
 </script>

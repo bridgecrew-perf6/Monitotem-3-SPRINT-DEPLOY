@@ -1,7 +1,7 @@
 package br.com.monitotem.test;
 
 import br.com.monitotem.dao.TotemDAO;
-import br.com.monitotem.service.ConnectionFactory;
+import br.com.monitotem.service.ConnectionFactorySQL;
 import br.com.monitotem.entities.Totem;
 import com.github.britooo.looca.api.core.Looca;
 import java.net.Inet4Address;
@@ -24,7 +24,7 @@ public class TestaInsercaoEListagemComUsuario {
 
         Totem prod = new Totem(looca,infoMaquina,ip);
 
-        try ( Connection con = new ConnectionFactory().recuperarConexao()) {
+        try ( Connection con = new ConnectionFactorySQL().recuperarConexao()) {
 
             TotemDAO usuarioDAO = new TotemDAO(con);
 

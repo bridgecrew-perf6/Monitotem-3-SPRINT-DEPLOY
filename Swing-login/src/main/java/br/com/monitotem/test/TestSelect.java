@@ -4,7 +4,7 @@
  */
 package br.com.monitotem.test;
 
-import br.com.monitotem.service.ConnectionFactory;
+import br.com.monitotem.service.ConnectionFactorySQL;
 import java.sql.Connection;
 import java.io.IOException;
 
@@ -34,7 +34,7 @@ public class TestSelect {
 
                 Integer NumberReboot = 0;
 
-                ConnectionFactory connectionFactory = new ConnectionFactory();
+                ConnectionFactorySQL connectionFactory = new ConnectionFactorySQL();
                 Connection con = null;
                 try {
                     con = connectionFactory.recuperarConexao();
