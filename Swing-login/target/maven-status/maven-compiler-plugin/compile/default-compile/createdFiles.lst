@@ -1,4 +1,5 @@
 br\com\monitotem\view\Cadastro$1.class
+br\com\monitotem\service\ConnectionFactory.class
 br\com\monitotem\test\TestaRemocao.class
 br\com\monitotem\test\TestaInsercaoEListagemComUsuario.class
 br\com\monitotem\test\TestSelect.class
@@ -30,7 +31,15 @@ br\com\monitotem\service\ConnectionFactoryMySQL.class
 br\com\monitotem\test\TestaListagem.class
 br\com\monitotem\test\TestaInsercaoComParametro.class
 br\com\monitotem\service\Slack.class
+<<<<<<< HEAD
+br\com\monitotem\service\TotemService.class
 br\com\monitotem\view\Cadastro$4.class
 br\com\monitotem\view\InfoHardware$2.class
 br\com\monitotem\view\Menu$1.class
+br\com\monitotem\service\cnn.class
+=======
+br\com\monitotem\view\Cadastro$4.class
+br\com\monitotem\view\InfoHardware$2.class
+br\com\monitotem\view\Menu$1.class
+>>>>>>> 92672d347e0e171bb286e765d21e3af292105ed3
 br\com\monitotem\view\ThreadHardware$7.class
