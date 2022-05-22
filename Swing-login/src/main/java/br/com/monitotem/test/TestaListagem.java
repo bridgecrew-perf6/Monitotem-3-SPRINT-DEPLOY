@@ -1,6 +1,6 @@
 package br.com.monitotem.test;
 
-import br.com.monitotem.service.ConnectionFactory;
+import br.com.monitotem.service.ConnectionFactorySQL;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
@@ -13,7 +13,7 @@ public class TestaListagem {
 
     public static void main(String[] args) throws SQLException, UnknownHostException {
 
-        ConnectionFactory connectionFactory = new ConnectionFactory();
+        ConnectionFactorySQL connectionFactory = new ConnectionFactorySQL();
         Connection con = connectionFactory.recuperarConexao();
         InetAddress infoMaquina = InetAddress.getLocalHost();
 

@@ -1,6 +1,6 @@
 package br.com.monitotem.view;
 
-import br.com.monitotem.service.ConnectionFactory;
+import br.com.monitotem.service.ConnectionFactorySQL;
 import br.com.monitotem.service.Slack;
 import br.com.monitotem.entities.Totem;
 import com.github.britooo.looca.api.core.Looca;
@@ -45,7 +45,7 @@ public class ThreadHardware extends javax.swing.JFrame {
     
     public void reiniciaTotem() throws SQLException{
         
-          ConnectionFactory connectionFactory = new ConnectionFactory();
+          ConnectionFactorySQL connectionFactory = new ConnectionFactorySQL();
         Connection con = connectionFactory.recuperarConexao();
         
         Integer valueReinicied = null;
@@ -72,7 +72,7 @@ public class ThreadHardware extends javax.swing.JFrame {
      private void sendInformation() throws SQLException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-        ConnectionFactory connectionFactory = new ConnectionFactory();
+        ConnectionFactorySQL connectionFactory = new ConnectionFactorySQL();
         Connection con = connectionFactory.recuperarConexao();
 
         Timer timer = new Timer();

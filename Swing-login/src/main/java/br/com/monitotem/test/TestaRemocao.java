@@ -1,6 +1,6 @@
 
 package br.com.monitotem.test;
-import br.com.monitotem.service.ConnectionFactory;
+import br.com.monitotem.service.ConnectionFactorySQL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -11,7 +11,7 @@ public class TestaRemocao {
 
     public static void main(String[] args) throws SQLException {
         
-        ConnectionFactory factory = new ConnectionFactory();
+        ConnectionFactorySQL factory = new ConnectionFactorySQL();
         Connection con = factory.recuperarConexao();
         
         PreparedStatement stmt =  con.prepareStatement("DELETE FROM usuario WHERE idUsuario = ?");
