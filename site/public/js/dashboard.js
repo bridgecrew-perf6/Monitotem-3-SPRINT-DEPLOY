@@ -34,7 +34,38 @@ function fechar() {
   contador = 0;
 }
 
-// CHARTS DAsHBOARD
+
+
+function listarTotem() {
+  fetch("/usuarios//listarTotem", {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then(async function (resposta) {
+    const containerTotem = document.querySelector(".container_content");
+    const totens = await resposta.json();
+    for (let i = 0; i < totens.length; i++) {
+      let content = document.createElement("div");
+      let content_id = document.createElement('span')
+      let content_status = document.createElement('span')
+      let content_action = document.createElement('span')
+
+      content_id.innerHTML = `${totens[i].idTotem}`;
+      content_status.innerHTML = 'Instável'
+      content_action.innerHTML = 'teste'
+
+
+      content.setAttribute("class", "content")
+
+      content.append(content_id, content_status, content_action);
+
+      containerTotem.appendChild(content);
+    }
+  })
+}
+
+window.addEventListener("load", listarTotem);
 
 
 
