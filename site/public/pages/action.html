@@ -95,7 +95,7 @@
         <div class="chartDisco"><span id="poercentDisc"> </span><canvas id="chartDisco"></canvas></div>
 
         <div class="buttons-action">
-          <button onclick="obterDadosGrafico(48)">Limpar cache</button>
+          <button onclick="obterDadosGrafico(52)">Limpar cache</button>
           <button onclick="reiniciarMaquina()">Reiniciar</button>
         </div>
       </div>
@@ -140,7 +140,7 @@
   }
   let proximaAtualizacao;
 
-  window.onload = obterDadosGrafico(48);
+  window.onload = obterDadosGrafico(52);
 
 
 
@@ -314,7 +314,7 @@
 
 
 
-    //   nomeUsuario.innerHTML = `${sessionStorage.NOME_USUARIO}`;
+      nomeUsuario.innerHTML = `${sessionStorage.NOME_USUARIO}`;
 
 
       poercentDisc.innerHTML =  sessionStorage.MEMORYRAM;
