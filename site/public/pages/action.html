@@ -92,7 +92,7 @@
       </div>
       <div class="grafico_disco">
         <h1>Disco</h1>
-        <div class="chartDisco"><span id="poercentDisc"> </span><canvas id="chartDisco"></canvas></div>
+        <div class="chartDisco"><span id="poercentDisc">0%</span><canvas height="300" id="chartDisco"></canvas></div>
 
         <div class="buttons-action">
           <button onclick="obterDadosGrafico(52)">Limpar cache</button>
@@ -341,14 +341,12 @@
       nomeUsuario.innerHTML = `${sessionStorage.NOME_USUARIO}`;
 
 
-      poercentDisc.innerHTML =  sessionStorage.MEMORYRAM;
+      poercentDisc.innerHTML =  `${sessionStorage.MEMORYRAM}%`;
       const disco = document.getElementById('chartDisco');
       const chartDisco = new Chart(disco, {
         type: 'doughnut',
         data: {
-          labels: ['Memoria restante', 'memoria em uso'],
           datasets: [{
-            label: '# of Votes',
             data: [Number(sessionStorage.MEMORYRAMTOTALLY), Number(sessionStorage.MEMORYRAM)],
             backgroundColor: [
               '#2855b5',
@@ -357,6 +355,7 @@
             ],
             borderColor: [
               '#2855b7',
+              '#2855b7'
 
             ],
           }]
