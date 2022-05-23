@@ -10,13 +10,14 @@ import br.com.monitotem.service.Slack;
 import br.com.monitotem.test.TestSelect;
 import com.github.britooo.looca.api.core.Looca;
 import java.awt.Color;
+import java.beans.PropertyVetoException;
 import java.net.InetAddress;
 import java.sql.SQLException;
 import java.util.Scanner;
 
 public class JavaCli {
 
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, PropertyVetoException {
         Scanner leitorString = new Scanner(System.in);
         Scanner leitorNumber = new Scanner(System.in);
         Boolean autenticou = false;
@@ -51,7 +52,7 @@ public class JavaCli {
                     if (validar.getEmailUsuario() != null && validar.getSenhaUsuario() != null) {
                         ts.Reinicia();
                         autenticou = true;
-                        ThreadHardware thread = new ThreadHardware();
+                        new ThreadHardware();
 
                         try {
                             slack.sendNewUser(usuario);

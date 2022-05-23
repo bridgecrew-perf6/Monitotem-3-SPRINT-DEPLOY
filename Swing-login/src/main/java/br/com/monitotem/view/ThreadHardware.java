@@ -1,10 +1,11 @@
 package br.com.monitotem.view;
 
 import br.com.monitotem.service.ConnectionFactorySQL;
-import br.com.monitotem.service.Slack;
 import br.com.monitotem.entities.Totem;
+import br.com.monitotem.service.ConnectionFactoryMySQL;
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.memoria.Memoria;
+import java.beans.PropertyVetoException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,11 +15,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import java.util.Date;
 
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.silentsoft.slack.api.SlackAPI;
 
@@ -31,12 +33,12 @@ public class ThreadHardware extends javax.swing.JFrame {
     /**
      * Creates new form ThreadHardware
      */
-    public ThreadHardware() throws SQLException {
+    public ThreadHardware() throws SQLException, PropertyVetoException {
         initComponents();
         this.setUpOs();
     }
 
-    private void setUpOs() throws SQLException {
+    private void setUpOs() throws SQLException, PropertyVetoException {
         sendInformation();
         getMemoriaTxt();
         getProcessadorTxt();
@@ -107,15 +109,19 @@ public class ThreadHardware extends javax.swing.JFrame {
 
     }
 
-    public void sendInformation() throws SQLException {
+    public void sendInformation() throws SQLException, PropertyVetoException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         ConnectionFactorySQL connectionFactory = new ConnectionFactorySQL();
         Connection con = connectionFactory.recuperarConexao();
 
+        ConnectionFactoryMySQL connectionFactoryMySql = new ConnectionFactoryMySQL();
+        Connection cnn = connectionFactoryMySql.recuperarConexao();
+
         Timer timer = new Timer();
 
         String sql = "INSERT INTO registro(usoMemoria,usoCpu,tempoAtividade,dataRegistro,statusRegistro, fk_totem,memoriaTotal) VALUES(?,?,?,?,?,?,?)";
+        String MySql = "INSERT INTO registro(usoMemoria,usoCpu,tempoAtividade,dataRegistro) VALUES(?,?,?,?)";
 
         timer.scheduleAtFixedRate(new TimerTask() {
 
@@ -159,7 +165,28 @@ public class ThreadHardware extends javax.swing.JFrame {
                     System.out.println(e.getMessage());
                 }
 
+                try ( PreparedStatement pstm = cnn.prepareStatement(MySql, Statement.RETURN_GENERATED_KEYS)) {
+                    System.out.println("enviando para o MYSQL");
+
+                    pstm.setInt(1, (int) ((pc.getMemoria().getEmUso() * 100) / pc.getMemoria().getTotal()) + 1);
+                    pstm.setInt(2, pc.getProcessador().getUso().intValue());
+                    pstm.setString(3, pc.getSistema().getTempoDeAtividade().toString());
+                    pstm.setString(4, formatter.format(LocalDateTime.now()));
+
+                    pstm.execute();
+
+                    try ( ResultSet rs = pstm.getGeneratedKeys()) {
+                        while (rs.next()) {
+                            new Totem().setIdTotem(rs.getInt(1));
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println("Nao envia");
+                    System.out.println(e.getMessage());
+                }
+
             }
+
         }, 2, 3000);
     }
 
@@ -438,6 +465,8 @@ public class ThreadHardware extends javax.swing.JFrame {
                 try {
                     new ThreadHardware().setVisible(true);
                 } catch (SQLException ex) {
+                    ex.printStackTrace();
+                } catch (PropertyVetoException ex) {
                     ex.printStackTrace();
                 }
             }

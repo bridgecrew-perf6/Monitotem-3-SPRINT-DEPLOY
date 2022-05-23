@@ -20,7 +20,7 @@ public class ConnectionFactoryMySQL {
         comboPooledDataSource.setDriverClass("com.mysql.cj.jdbc.Driver");
         comboPooledDataSource.setJdbcUrl("jdbc:mysql://localhost:3306/monitotem");
         comboPooledDataSource.setUser("root");
-        comboPooledDataSource.setPassword("Leigo151");
+        comboPooledDataSource.setPassword("mysqldb");
 
         // limitando quantidade de conexões feitas por vez
         comboPooledDataSource.setMaxPoolSize(15);
