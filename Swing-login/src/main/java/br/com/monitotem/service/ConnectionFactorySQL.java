@@ -25,7 +25,7 @@ public class ConnectionFactorySQL {
         comboPooledDataSource.setPassword("2ads#grupo2");
 
         // limitando quantidade de conexões feitas por vez
-        comboPooledDataSource.setMaxPoolSize(15);
+        comboPooledDataSource.setMaxPoolSize(20);
 
         this.dataSource = comboPooledDataSource;
     }

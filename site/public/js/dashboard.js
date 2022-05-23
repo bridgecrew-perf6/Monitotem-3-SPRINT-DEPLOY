@@ -35,7 +35,6 @@ function fechar() {
 }
 
 
-
 function listarTotem() {
   fetch("/usuarios//listarTotem", {
     method: "GET",
@@ -47,27 +46,50 @@ function listarTotem() {
     const totens = await resposta.json();
     for (let i = 0; i < totens.length; i++) {
       let content = document.createElement("div");
-      let content_id = document.createElement('div')
-      let content_status = document.createElement('span')
-      let content_action = document.createElement('span')
+      let content_id = document.createElement("div");
+      let content_status = document.createElement("span");
+      let content_action = document.createElement("span");
+
+      fetch("/status/getStatus", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }).then(async function (resposta) {
+        const status = await resposta.json();
+        content_status.innerHTML = status[i].statusRegistro;
+      });
+
+      content_action.onclick = function teste() {
+        fetch("/usuarios//listarTotem", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }).then(async function (resposta) {
+          const totens = await resposta.json();
+          leolindo = totens[i].idTotem;
+          console.log(leolindo);
+        });
+      }
 
       content_id.innerHTML = `<i class="fa-solid fa-display"></i>${totens[i].idTotem}`;
-      content_status.innerHTML = 'Instável'
-      content_action.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i>'
 
+      content_action.innerHTML =
+        '<i class="fa-solid fa-circle-exclamation"></i>';
 
-      content.setAttribute("class", "content")
-      content_id.setAttribute("class", "content_id")
-      content_status.setAttribute("class", "content_status")
-      content_action.setAttribute("class", "content_action")
-
-
+      content.setAttribute("class", "content");
+      content_id.setAttribute("class", "content_id");
+      content_status.setAttribute("class", "content_status");
+      content_action.setAttribute("class", "content_action");
 
       content.append(content_id, content_status, content_action);
 
       containerTotem.appendChild(content);
     }
-  })
+  });
+  
 }
+
 
 window.addEventListener("load", listarTotem);

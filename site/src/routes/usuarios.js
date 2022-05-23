@@ -52,6 +52,10 @@ router.get("/getMemoryTotalRam", function (req,res){
   usuarioController.getMemoryTotalRam(req, res)
 });
 
+router.get("/getMemoryTotally", function (req,res){
+  usuarioController.getMemoryTotally(req, res)
+});
+
 
 
 module.exports = router;
