@@ -107,7 +107,7 @@ public class ThreadHardware extends javax.swing.JFrame {
 
     }
 
-    private void sendInformation() throws SQLException {
+    public void sendInformation() throws SQLException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
         ConnectionFactorySQL connectionFactory = new ConnectionFactorySQL();

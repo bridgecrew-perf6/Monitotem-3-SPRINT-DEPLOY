@@ -20,7 +20,7 @@
                     </descriptorRefs>
                     <archive>
                         <manifest>
-                            <mainClass>br.com.monitotem.view.Cadastro</mainClass>
+                            <mainClass>br.com.monitotem.view.JavaCli</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

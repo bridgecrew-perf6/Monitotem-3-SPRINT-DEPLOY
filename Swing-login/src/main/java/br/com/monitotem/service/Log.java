@@ -1,4 +1,3 @@
-
 package br.com.monitotem.service;
 
 import java.io.BufferedWriter;
@@ -8,20 +7,17 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
 public class Log {
-      
+
     public Log() {
     }
-    
-//    String strLocalDate  = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-   public void logar(String texto) {
+    String strLocalDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString();
 
-//        File Log = new File("Log"+strLocalDate+".txt");
+    public void logar(String texto) {
+        File Log = new File("Log" + strLocalDate + ".txt");
 
-                File Log = new File("Log.txt");
-
+//                File Log = new File("Log.txt");
         try {
             if (!Log.exists()) {
                 System.out.println("Criei um novo arquivo");
@@ -35,8 +31,9 @@ public class Log {
             bufferedWriter.close();
 
         } catch (IOException e) {
-            System.out.println("LOG NÃO CRIADO!!");
+            e.printStackTrace();
+            e.getMessage();
         }
     }
-    
+
 }

@@ -26,7 +26,6 @@ br\com\monitotem\view\ThreadHardware$8.class
 br\com\monitotem\view\Menu$2.class
 br\com\monitotem\view\Cadastro.class
 br\com\monitotem\view\ThreadHardware.class
-br\com\monitotem\service\ConnectionFactoryMySQL.class
 br\com\monitotem\test\TestaListagem.class
 br\com\monitotem\test\TestaInsercaoComParametro.class
 br\com\monitotem\service\Slack.class
