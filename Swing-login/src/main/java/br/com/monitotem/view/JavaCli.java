@@ -9,15 +9,15 @@ import br.com.monitotem.service.ConnectionFactorySQL;
 import br.com.monitotem.service.Slack;
 import br.com.monitotem.test.TestSelect;
 import com.github.britooo.looca.api.core.Looca;
-import java.awt.Color;
 import java.beans.PropertyVetoException;
 import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.util.Scanner;
 
 public class JavaCli {
 
-    public static void main(String[] args) throws SQLException, PropertyVetoException {
+    public static void main(String[] args) throws SQLException, PropertyVetoException, UnknownHostException {
         Scanner leitorString = new Scanner(System.in);
         Scanner leitorNumber = new Scanner(System.in);
         Boolean autenticou = false;
@@ -26,7 +26,6 @@ public class JavaCli {
         if (opcao.equals("1")) {
             new Cadastro().setVisible(true);
         } else {
-
             while (!autenticou) {
 
                 System.out.println("Insira seu email");

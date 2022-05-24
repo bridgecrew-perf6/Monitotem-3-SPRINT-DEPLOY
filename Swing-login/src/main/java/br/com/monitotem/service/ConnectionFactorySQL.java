@@ -29,6 +29,10 @@ public class ConnectionFactorySQL {
 
         this.dataSource = comboPooledDataSource;
     }
+
+    public ConnectionFactorySQL(String verify, int RETURN_GENERATED_KEYS) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
     
 
     public Connection recuperarConexao() throws SQLException {

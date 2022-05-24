@@ -2,6 +2,10 @@ package br.com.monitotem.view;
 
 import com.github.britooo.looca.api.core.Looca;
 import java.awt.Color;
+import java.beans.PropertyVetoException;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -196,11 +200,25 @@ public class InfoHardware extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
-        dispose();
-         Menu menu = new Menu();
-        menu.setVisible(true);
-        
-        
+        try {
+            dispose();
+            Menu menu = new Menu();
+            try {
+                menu = new Menu();
+            } catch (SQLException ex) {
+                Logger.getLogger(InfoHardware.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(InfoHardware.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            menu.setVisible(true);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(InfoHardware.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(InfoHardware.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     /**

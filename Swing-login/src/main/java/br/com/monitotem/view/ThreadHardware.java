@@ -7,6 +7,8 @@ import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.memoria.Memoria;
 import java.beans.PropertyVetoException;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,20 +32,24 @@ import org.silentsoft.slack.api.SlackAPI;
  */
 public class ThreadHardware extends javax.swing.JFrame {
 
+    Connection con = new ConnectionFactorySQL().recuperarConexao();
+    Connection cnn = new ConnectionFactoryMySQL().recuperarConexao();
+
     /**
      * Creates new form ThreadHardware
      */
-    public ThreadHardware() throws SQLException, PropertyVetoException {
+    public ThreadHardware() throws SQLException, PropertyVetoException, UnknownHostException {
         initComponents();
+        sendInformation();
+        reiniciaTotem();
+        getIdTotem();
         this.setUpOs();
     }
 
     private void setUpOs() throws SQLException, PropertyVetoException {
-        sendInformation();
         getMemoriaTxt();
         getProcessadorTxt();
         getProcessosTxt();
-        reiniciaTotem();
     }
 
     public void reiniciaTotem() throws SQLException {
@@ -54,18 +60,10 @@ public class ThreadHardware extends javax.swing.JFrame {
 
                 Integer NumberReboot = 0;
 
-                ConnectionFactorySQL connectionFactory = new ConnectionFactorySQL();
-                Connection con = null;
-                try {
-                    con = connectionFactory.recuperarConexao();
-                } catch (SQLException ex) {
-                    ex.getMessage();
-                }
-
-                String sql = "select reiniciarTotem from totem where idTotem = 52";
+                String sql = "select reiniciarTotem from totem where idTotem = ?";
 
                 try ( PreparedStatement pstm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
-
+                    pstm.setInt(1, getIdTotem());
                     pstm.execute();
 
                     try ( ResultSet rs = pstm.getResultSet()) {
@@ -74,26 +72,23 @@ public class ThreadHardware extends javax.swing.JFrame {
                             System.out.println(NumberReboot);
                         }
                     }
-
-                    System.out.println();
-
                 } catch (SQLException ex) {
                     ex.printStackTrace();
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(ThreadHardware.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
                 if (NumberReboot == 1) {
-
-                    String sql2 = "UPDATE totem SET reiniciarTotem = 0 WHERE idTotem = 52";
-
+                    String sql2 = "UPDATE totem SET reiniciarTotem = 0 WHERE idTotem = ?";
                     try ( PreparedStatement pstm = con.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS)) {
-
+                        pstm.setInt(1, getIdTotem());
                         pstm.execute();
-
-                        System.out.println();
-
                     } catch (SQLException ex) {
                         ex.printStackTrace();
+                    } catch (UnknownHostException ex) {
+                        ex.printStackTrace();
                     }
+
                     try {
                         Runtime.getRuntime().exec("reboot");
                     } catch (IOException ex) {
@@ -111,12 +106,6 @@ public class ThreadHardware extends javax.swing.JFrame {
 
     public void sendInformation() throws SQLException, PropertyVetoException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        ConnectionFactorySQL connectionFactory = new ConnectionFactorySQL();
-        Connection con = connectionFactory.recuperarConexao();
-
-        ConnectionFactoryMySQL connectionFactoryMySql = new ConnectionFactoryMySQL();
-        Connection cnn = connectionFactoryMySql.recuperarConexao();
 
         Timer timer = new Timer();
 
@@ -138,19 +127,15 @@ public class ThreadHardware extends javax.swing.JFrame {
                     pstm.setString(3, pc.getSistema().getTempoDeAtividade().toString());
                     pstm.setString(4, formatter.format(LocalDateTime.now()));
                     pstm.setString(5, "FUNCIONANDO");
-                    pstm.setInt(6, 52);
+                    pstm.setInt(6, getIdTotem());
                     pstm.setInt(7, (int) ((pc.getMemoria().getDisponivel() * 100) / pc.getMemoria().getTotal()));
 
                     if (((pc.getMemoria().getEmUso() * 100) / pc.getMemoria().getTotal()) + 1 > 70) {
-
                         SlackAPI.postMessage("xoxb-3431609768566-3438312290354-XJY3Bz1jDMI5IH6YUZm7g2dp", "alertas", "Cuidado sua memoria esta em nivel emergencial");
-
                     }
 
                     if (pc.getProcessador().getUso().intValue() > 60) {
-
                         SlackAPI.postMessage("xoxb-3431609768566-3438312290354-XJY3Bz1jDMI5IH6YUZm7g2dp", "alertas", "Cuidado seu processador esta em nivel emergencial");
-
                     }
 
                     pstm.execute();
@@ -184,10 +169,33 @@ public class ThreadHardware extends javax.swing.JFrame {
                     System.out.println("Nao envia");
                     System.out.println(e.getMessage());
                 }
-
             }
 
         }, 2, 3000);
+    }
+
+    public Integer getIdTotem() throws UnknownHostException, SQLException {
+
+        InetAddress infoMaquina = InetAddress.getLocalHost();
+        Integer id = null;
+        String verify = "SELECT idTotem from TOTEM WHERE hostname = ?";
+        try ( PreparedStatement pstm = con.prepareStatement(verify)) {
+            pstm.setString(1, infoMaquina.getHostName());
+
+            pstm.execute();
+
+            try ( ResultSet rs = pstm.getResultSet()) {
+                while (rs.next()) {
+                    id = rs.getInt(1);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return id;
     }
 
     private void getMemoriaTxt() {
@@ -201,23 +209,7 @@ public class ThreadHardware extends javax.swing.JFrame {
                 Long memoriaEmUso = new Looca().getMemoria().getEmUso();
 
                 txtMemoria.setText(memory.toString());
-
-                Double limite = 0.0;
-
-                Double memoria = Double.parseDouble(String.format("%s", memoriaTotal));
-                Double memoriaUso = Double.parseDouble(String.format("%s", memoriaEmUso));
-
-//                if (memoriaEmUso >= limite) {
-//
-//                    try {
-//                        SlackAPI.postMessage("xoxb-3431609768566-3438312290354-SjIa9U1TQ9sTKVP0frsUU6JB",
-//                                "alertas", "Uso de sua memória passou de 70%");
-//
-//                    } catch (Exception ex) {
-//                        ex.printStackTrace();
-//                    }
-//
-//                }
+//              
             }
         }, 4, 1000);
     }
@@ -426,9 +418,15 @@ public class ThreadHardware extends javax.swing.JFrame {
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
 
-        dispose();
-        Menu menu = new Menu();
-        menu.setVisible(true);
+        try {
+            dispose();
+            Menu menu = new Menu();
+            menu.setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(ThreadHardware.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(ThreadHardware.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }//GEN-LAST:event_btnVoltarActionPerformed
 
@@ -463,7 +461,11 @@ public class ThreadHardware extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new ThreadHardware().setVisible(true);
+                    try {
+                        new ThreadHardware().setVisible(true);
+                    } catch (UnknownHostException ex) {
+                        ex.printStackTrace();
+                    }
                 } catch (SQLException ex) {
                     ex.printStackTrace();
                 } catch (PropertyVetoException ex) {

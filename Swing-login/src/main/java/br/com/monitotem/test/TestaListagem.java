@@ -15,28 +15,27 @@ public class TestaListagem {
 
         ConnectionFactorySQL connectionFactory = new ConnectionFactorySQL();
         Connection con = connectionFactory.recuperarConexao();
+
         InetAddress infoMaquina = InetAddress.getLocalHost();
+        Integer id = 0;
+        String verify = "SELECT idTotem from TOTEM WHERE hostname = ?";
+        try ( PreparedStatement pstm = con.prepareStatement(verify)) {
+            pstm.setString(1, infoMaquina.getHostName());
 
-        PreparedStatement stmt = con.prepareStatement("SELECT hostname from TOTEM WHERE hostname = ?");
+            pstm.execute();
 
-        stmt.setString(1, infoMaquina.getHostName().toString());
+            try ( ResultSet rs = pstm.getResultSet()) {
+                while (rs.next()) {
+                    id = rs.getInt(1);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
 
-        
-        stmt.execute();
-
-        // ResultSet ele serve para buscar os resultados listados do stmt
-        ResultSet rs = stmt.getResultSet();
-
-        while (rs.next()) {
-
-            String hostname = rs.getString(1);
-            System.out.println(hostname);
-
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
 
-        System.out.println("Fechando conexão");
-        con.close();
-
+        System.out.println(id);
     }
-
 }

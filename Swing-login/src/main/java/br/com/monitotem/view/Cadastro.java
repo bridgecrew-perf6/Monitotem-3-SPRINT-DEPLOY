@@ -10,9 +10,12 @@ import br.com.monitotem.service.ConnectionFactoryMySQL;
 import br.com.monitotem.test.TestSelect;
 import com.github.britooo.looca.api.core.Looca;
 import java.awt.Color;
+import java.beans.PropertyVetoException;
 import java.net.InetAddress;
 
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -223,7 +226,6 @@ public class Cadastro extends javax.swing.JFrame {
                 Menu menu = new Menu();
                 menu.setVisible(true);
             } else {
-
                 txtResultado.setForeground(Color.red);
                 txtResultado.setText("Usuário ou senha inválido ...");
                 System.out.println("Login inválido tente novamnte");
@@ -231,6 +233,8 @@ public class Cadastro extends javax.swing.JFrame {
         } catch (SQLException ex) {
             ex.getMessage();
             System.out.println("error em");
+        } catch (PropertyVetoException ex) {
+            Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 

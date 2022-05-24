@@ -1,5 +1,27 @@
 package br.com.monitotem.view;
 
+import br.com.monitotem.entities.Totem;
+import br.com.monitotem.service.ConexaoBanco;
+import br.com.monitotem.service.ConnectionFactoryMySQL;
+import br.com.monitotem.service.ConnectionFactorySQL;
+import com.github.britooo.looca.api.core.Looca;
+import java.beans.PropertyVetoException;
+import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.silentsoft.slack.api.SlackAPI;
+
 /**
  *
  * @author enzo.f.silvestre
@@ -9,7 +31,7 @@ public class Menu extends javax.swing.JFrame {
     /**
      * Creates new form Menu
      */
-    public Menu() {
+    public Menu() throws SQLException, PropertyVetoException {
         initComponents();
     }
 
@@ -236,7 +258,6 @@ public class Menu extends javax.swing.JFrame {
         InfoHardware info = new InfoHardware();
         info.setVisible(true);
 
-
     }//GEN-LAST:event_InfomacaoHardwareActionPerformed
 
     /**
@@ -269,7 +290,14 @@ public class Menu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Menu().setVisible(true);
+                try {
+                    new Menu().setVisible(true);
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                } catch (PropertyVetoException ex) {
+                    ex.printStackTrace();
+
+                }
             }
         });
     }

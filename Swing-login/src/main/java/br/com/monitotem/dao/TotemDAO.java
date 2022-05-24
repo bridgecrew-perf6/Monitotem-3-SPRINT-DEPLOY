@@ -2,6 +2,7 @@ package br.com.monitotem.dao;
 
 import br.com.monitotem.entities.Totem;
 import br.com.monitotem.entities.Usuario;
+import br.com.monitotem.service.ConnectionFactorySQL;
 import com.github.britooo.looca.api.core.Looca;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -26,6 +27,9 @@ public class TotemDAO {
 
     public void salvar(Totem totem, Integer idEmpresa) throws SQLException, UnknownHostException {
 
+        ConnectionFactorySQL connectionFactory = new ConnectionFactorySQL();
+        Connection con = connectionFactory.recuperarConexao();
+        
         InetAddress infoMaquina = InetAddress.getLocalHost();
 
         Looca looca = new Looca();
@@ -58,7 +62,7 @@ public class TotemDAO {
                     pstm2.setString(7, infoMaquina.getHostAddress());
                     pstm2.setString(8, LocalDateTime.now().toString());
                     pstm2.setInt(9, idEmpresa);
-                        
+
                     pstm2.execute();
                     System.out.println("adicionando maquina");
                     try ( ResultSet rs2 = pstm2.getGeneratedKeys()) {
