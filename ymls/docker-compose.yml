@@ -13,8 +13,6 @@ services:
         container_name: jar-monitotem
         networks:
             - compose-bridge
-        ports:
-            - 3000:3000
 
 networks:
     compose-bridge:
