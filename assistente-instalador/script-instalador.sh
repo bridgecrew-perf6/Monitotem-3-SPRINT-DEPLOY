@@ -58,10 +58,10 @@ clear
 sudo apt-get install docker.io -y
 sudo systemctl start docker
 sudo systemctl enable docker
-sudo docker build -t jar_executavel/java-jar:1.0 /home/Monitotem-3-SPRINT-DEPLOY/Swing-login/target/
-sudo docker build -t banco_img/banco-mysql:1.0 /home/Monitotem-3-SPRINT-DEPLOY/assistente-instalador/
+sudo docker build -t jar_executavel/java-jar:1.0 /home/ubuntu/Monitotem-3-SPRINT-DEPLOY/Swing-login/target/
+sudo docker build -t banco_img/banco-mysql:1.0 /home/ubuntu/Monitotem-3-SPRINT-DEPLOY/assistente-instalador/
 sudo apt-get install docker-compose-plugin=2.3.3~ubuntu-focal
-cd /home/Monitotem-3-SPRINT-DEPLOY/ymls/
+cd /home/ubuntu/Monitotem-3-SPRINT-DEPLOY/ymls/
 sudo docker-compose up
 
 sudo docker ps -a

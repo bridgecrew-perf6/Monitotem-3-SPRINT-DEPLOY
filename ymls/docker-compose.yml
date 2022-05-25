@@ -14,7 +14,7 @@ services:
         networks:
             - compose-bridge
         ports:
-            - 3306:3000
+            - 3000:3000
 
 networks:
     compose-bridge:
