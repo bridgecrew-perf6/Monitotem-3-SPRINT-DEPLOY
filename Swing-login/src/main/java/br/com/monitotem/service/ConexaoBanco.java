@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public class ConexaoBanco {
 
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
+    public static void main(String[] args) throws SQLException {
 
         ConnectionFactorySQL connectionFactory = new ConnectionFactorySQL();
         Connection con = connectionFactory.recuperarConexao();

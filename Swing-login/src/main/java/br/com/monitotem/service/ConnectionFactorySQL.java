@@ -13,10 +13,9 @@ public class ConnectionFactorySQL {
 
     public DataSource dataSource;
 
-    public ConnectionFactorySQL() throws ClassNotFoundException {
+    public ConnectionFactorySQL() {
 
         ComboPooledDataSource comboPooledDataSource = new ComboPooledDataSource();
-        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         comboPooledDataSource.setJdbcUrl("jdbc:sqlserver://svr-monitotem.database.windows.net:1433;"
                 + "database=bd-monitotem;user=admi"
                 + "n-monitotem@svr-monitotem;password={2ads#grupo2};"
@@ -34,6 +33,7 @@ public class ConnectionFactorySQL {
     public ConnectionFactorySQL(String verify, int RETURN_GENERATED_KEYS) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
+    
 
     public Connection recuperarConexao() throws SQLException {
         return this.dataSource.getConnection();

@@ -13,7 +13,7 @@ import java.sql.SQLException;
 
 public class TestaInsercaoEListagemComUsuario {
 
-    public static void main(String[] args) throws SQLException, UnknownHostException, ClassNotFoundException {
+    public static void main(String[] args) throws SQLException, UnknownHostException {
 
         String infoMaquina = InetAddress.getLocalHost().toString();
         String ip = InetAddress.getLocalHost().getHostAddress().toString();

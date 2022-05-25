@@ -17,6 +17,7 @@ public class Log {
     public void logar(String texto) {
         File Log = new File("Log" + strLocalDate + ".txt");
 
+//                File Log = new File("Log.txt");
         try {
             if (!Log.exists()) {
                 System.out.println("Criei um novo arquivo");

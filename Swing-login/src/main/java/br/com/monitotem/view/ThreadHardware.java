@@ -1,19 +1,30 @@
 package br.com.monitotem.view;
 
-import br.com.monitotem.dao.TotemDAO;
 import br.com.monitotem.service.ConnectionFactorySQL;
+import br.com.monitotem.entities.Totem;
 import br.com.monitotem.service.ConnectionFactoryMySQL;
 import com.github.britooo.looca.api.core.Looca;
 import com.github.britooo.looca.api.group.memoria.Memoria;
 import java.beans.PropertyVetoException;
+import java.io.IOException;
+import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.silentsoft.slack.api.SlackAPI;
 
 /**
  *
@@ -23,16 +34,15 @@ public class ThreadHardware extends javax.swing.JFrame {
 
     Connection con = new ConnectionFactorySQL().recuperarConexao();
     Connection cnn = new ConnectionFactoryMySQL().recuperarConexao();
-    TotemDAO totemDao = new TotemDAO(con);
 
     /**
      * Creates new form ThreadHardware
      */
-    public ThreadHardware() throws SQLException, PropertyVetoException, UnknownHostException, ClassNotFoundException {
-        this.con = new ConnectionFactorySQL().recuperarConexao();
+    public ThreadHardware() throws SQLException, PropertyVetoException, UnknownHostException {
         initComponents();
-        totemDao.reiniciaTotem();
-        totemDao.sendInformation(cnn);
+        sendInformation();
+        reiniciaTotem();
+        getIdTotem();
         this.setUpOs();
     }
 
@@ -40,6 +50,152 @@ public class ThreadHardware extends javax.swing.JFrame {
         getMemoriaTxt();
         getProcessadorTxt();
         getProcessosTxt();
+    }
+
+    public void reiniciaTotem() throws SQLException {
+
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+
+                Integer NumberReboot = 0;
+
+                String sql = "select reiniciarTotem from totem where idTotem = ?";
+
+                try ( PreparedStatement pstm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                    pstm.setInt(1, getIdTotem());
+                    pstm.execute();
+
+                    try ( ResultSet rs = pstm.getResultSet()) {
+                        while (rs.next()) {
+                            NumberReboot = rs.getInt(1);
+                            System.out.println(NumberReboot);
+                        }
+                    }
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                } catch (UnknownHostException ex) {
+                    Logger.getLogger(ThreadHardware.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+                if (NumberReboot == 1) {
+                    String sql2 = "UPDATE totem SET reiniciarTotem = 0 WHERE idTotem = ?";
+                    try ( PreparedStatement pstm = con.prepareStatement(sql2, Statement.RETURN_GENERATED_KEYS)) {
+                        pstm.setInt(1, getIdTotem());
+                        pstm.execute();
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                    } catch (UnknownHostException ex) {
+                        ex.printStackTrace();
+                    }
+
+                    try {
+                        Runtime.getRuntime().exec("reboot");
+                    } catch (IOException ex) {
+                        ex.getMessage();
+                    }
+
+                    System.out.println("Deu certo carambaaa");
+
+                }
+
+            }
+        }, 2, 5000);
+
+    }
+
+    public void sendInformation() throws SQLException, PropertyVetoException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        Timer timer = new Timer();
+
+        String sql = "INSERT INTO registro(usoMemoria,usoCpu,tempoAtividade,dataRegistro,statusRegistro, fk_totem,memoriaTotal) VALUES(?,?,?,?,?,?,?)";
+        String MySql = "INSERT INTO registro(usoMemoria,usoCpu,tempoAtividade,dataRegistro) VALUES(?,?,?,?)";
+
+        timer.scheduleAtFixedRate(new TimerTask() {
+
+            @Override
+            public void run() {
+
+                Looca pc = new Looca();
+
+                try ( PreparedStatement pstm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+                    System.out.println("enviando");
+
+                    pstm.setInt(1, (int) ((pc.getMemoria().getEmUso() * 100) / pc.getMemoria().getTotal()) + 1);
+                    pstm.setInt(2, pc.getProcessador().getUso().intValue());
+                    pstm.setString(3, pc.getSistema().getTempoDeAtividade().toString());
+                    pstm.setString(4, formatter.format(LocalDateTime.now()));
+                    pstm.setString(5, "FUNCIONANDO");
+                    pstm.setInt(6, getIdTotem());
+                    pstm.setInt(7, (int) ((pc.getMemoria().getDisponivel() * 100) / pc.getMemoria().getTotal()));
+
+                    if (((pc.getMemoria().getEmUso() * 100) / pc.getMemoria().getTotal()) + 1 > 70) {
+                        SlackAPI.postMessage("xoxb-3431609768566-3438312290354-XJY3Bz1jDMI5IH6YUZm7g2dp", "alertas", "Cuidado sua memoria esta em nivel emergencial");
+                    }
+
+                    if (pc.getProcessador().getUso().intValue() > 60) {
+                        SlackAPI.postMessage("xoxb-3431609768566-3438312290354-XJY3Bz1jDMI5IH6YUZm7g2dp", "alertas", "Cuidado seu processador esta em nivel emergencial");
+                    }
+
+                    pstm.execute();
+
+                    try ( ResultSet rs = pstm.getGeneratedKeys()) {
+                        while (rs.next()) {
+                            new Totem().setIdTotem(rs.getInt(1));
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println("Nao envia");
+                    System.out.println(e.getMessage());
+                }
+
+                try ( PreparedStatement pstm = cnn.prepareStatement(MySql, Statement.RETURN_GENERATED_KEYS)) {
+                    System.out.println("enviando para o MYSQL");
+
+                    pstm.setInt(1, (int) ((pc.getMemoria().getEmUso() * 100) / pc.getMemoria().getTotal()) + 1);
+                    pstm.setInt(2, pc.getProcessador().getUso().intValue());
+                    pstm.setString(3, pc.getSistema().getTempoDeAtividade().toString());
+                    pstm.setString(4, formatter.format(LocalDateTime.now()));
+
+                    pstm.execute();
+
+                    try ( ResultSet rs = pstm.getGeneratedKeys()) {
+                        while (rs.next()) {
+                            new Totem().setIdTotem(rs.getInt(1));
+                        }
+                    }
+                } catch (Exception e) {
+                    System.out.println("Nao envia");
+                    System.out.println(e.getMessage());
+                }
+            }
+
+        }, 2, 3000);
+    }
+
+    public Integer getIdTotem() throws UnknownHostException, SQLException {
+
+        InetAddress infoMaquina = InetAddress.getLocalHost();
+        Integer id = null;
+        String verify = "SELECT idTotem from TOTEM WHERE hostname = ?";
+        try ( PreparedStatement pstm = con.prepareStatement(verify)) {
+            pstm.setString(1, infoMaquina.getHostName());
+
+            pstm.execute();
+
+            try ( ResultSet rs = pstm.getResultSet()) {
+                while (rs.next()) {
+                    id = rs.getInt(1);
+                }
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return id;
     }
 
     private void getMemoriaTxt() {
@@ -88,6 +244,11 @@ public class ThreadHardware extends javax.swing.JFrame {
         }, 4, 1000);
     }
 
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -304,8 +465,6 @@ public class ThreadHardware extends javax.swing.JFrame {
                         new ThreadHardware().setVisible(true);
                     } catch (UnknownHostException ex) {
                         ex.printStackTrace();
-                    } catch (ClassNotFoundException ex) {
-                        Logger.getLogger(ThreadHardware.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 } catch (SQLException ex) {
                     ex.printStackTrace();
