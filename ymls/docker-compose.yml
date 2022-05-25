@@ -1,0 +1,21 @@
+version: "1.0"
+services:
+    mysql:
+        image: banco_img/banco-mysql:1.0
+        container_name: mysql-monitotem
+        networks:
+            - compose-bridge
+        ports:
+            - 3306:3306
+
+    java-executavel:
+        image: jar_executavel/java-jar:1.0
+        container_name: jar-monitotem
+        networks:
+            - compose-bridge
+        ports:
+            - 3306:3000
+
+networks:
+    compose-bridge:
+        driver: bridge
