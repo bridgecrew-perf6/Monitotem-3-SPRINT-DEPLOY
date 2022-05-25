@@ -12,27 +12,31 @@ public class Log {
     public Log() {
     }
 
-    String strLocalDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString();
-
+    String strLocalDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")).toString();
     public void logar(String texto) {
-        File Log = new File("Log" + strLocalDate + ".txt");
+//        File log = new File("Log.txt");
 
+        File log = new File("Log.txt");
         try {
-            if (!Log.exists()) {
+            if (!log.exists()) {
                 System.out.println("Criei um novo arquivo");
-                Log.createNewFile();
+                log.createNewFile();
             }
-
-            FileWriter fileWriter = new FileWriter(Log, true);
+            
+            
+            FileWriter fileWriter = new FileWriter(log, true);
 
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(texto);
+            bufferedWriter.write(strLocalDate + texto + "\n" );
             bufferedWriter.close();
 
         } catch (IOException e) {
             e.printStackTrace();
             e.getMessage();
         }
+
     }
 
+    
 }
+

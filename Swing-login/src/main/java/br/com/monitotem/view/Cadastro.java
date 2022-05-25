@@ -199,7 +199,12 @@ public class Cadastro extends javax.swing.JFrame {
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
+
                 System.out.println("Login efetuado com sucesso !");
+           Log alertaLog = new Log();
+        
+           alertaLog.logar("Login efetuado com sucesso ! ");
+
 
                 try {
                     String infoMaquina = InetAddress.getLocalHost().toString();
