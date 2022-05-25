@@ -11,7 +11,7 @@ import java.sql.ResultSet;
 
 public class TestaListagem {
 
-    public static void main(String[] args) throws SQLException, UnknownHostException {
+    public static void main(String[] args) throws SQLException, UnknownHostException, ClassNotFoundException {
 
         ConnectionFactorySQL connectionFactory = new ConnectionFactorySQL();
         Connection con = connectionFactory.recuperarConexao();

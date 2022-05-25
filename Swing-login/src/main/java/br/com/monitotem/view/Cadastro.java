@@ -181,7 +181,6 @@ public class Cadastro extends javax.swing.JFrame {
         UserDao userDao = new UserDao();
 
         InetAddress inetAddress;
-        TestSelect ts = new TestSelect();
         Slack slack = new Slack();
 
         try {
@@ -193,7 +192,7 @@ public class Cadastro extends javax.swing.JFrame {
             System.out.println("O retorno disso é " + validar);
 
             if (validar.getEmailUsuario() != null && validar.getSenhaUsuario() != null) {
-                ts.Reinicia();
+          
 
                 try {
                     slack.sendNewUser(usuario);
@@ -235,10 +234,12 @@ public class Cadastro extends javax.swing.JFrame {
             System.out.println("error em");
         } catch (PropertyVetoException ex) {
             Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Cadastro.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
-    /**
+    /** 
      * @param args the command line arguments
      */
     public static void main(String args[]) {

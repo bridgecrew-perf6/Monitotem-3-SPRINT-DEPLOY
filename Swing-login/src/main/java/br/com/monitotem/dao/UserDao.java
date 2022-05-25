@@ -13,7 +13,7 @@ public class UserDao {
 
     }
 
-    public Usuario validarLogin(Usuario user) throws SQLException {
+    public Usuario validarLogin(Usuario user) throws SQLException, ClassNotFoundException {
         ConnectionFactorySQL connectionFactory = new ConnectionFactorySQL();
         Connection con = connectionFactory.recuperarConexao();
 

@@ -17,7 +17,7 @@ import java.util.Scanner;
 
 public class JavaCli {
 
-    public static void main(String[] args) throws SQLException, PropertyVetoException, UnknownHostException {
+    public static void main(String[] args) throws SQLException, PropertyVetoException, UnknownHostException, ClassNotFoundException {
         Scanner leitorString = new Scanner(System.in);
         Scanner leitorNumber = new Scanner(System.in);
         Boolean autenticou = false;

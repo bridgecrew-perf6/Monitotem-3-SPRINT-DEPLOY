@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 public class TestaInsercaoComParametro {
     
-    public static void main(String[] args) throws SQLException {
+    public static void main(String[] args) throws SQLException, ClassNotFoundException {
         
         // AUTO CLOSABLE ativado
         
