@@ -11,7 +11,10 @@ su urubu100 -p urubu100
 fi
 
 sudo apt-get update && sudo apt-get upgrade -y
-#sudo apt-get install xrdp lxde-core lxde tigervnc-standalone-server -y
+sudo apt-get install xrdp lxde-core lxde tigervnc-standalone-server -y
+
+sudo apt-get update && sudo apt-get upgrade -y
+git clone https://github.com/EnzoFBS/Monitotem-3-SPRINT-DEPLOY.git
 
 java --version
 if [ $? -eq 0 ]
@@ -47,11 +50,7 @@ fi
 fi
 clear
 
-echo \"Sera realizado agora, a instalacao do MoniSystem, nosso sistema de monitoramento\"
-sleep 4
-clear
-
-echo \"Para uma instalacao completa recomendamos a criacao de um banco de dados local. Continuar com a instalacao? S/n \"
+echo \"Para finalizar a instalacao, sera feito o download do nosso app Monisystem e um banco de dados local, prosseguir com a instalacao? S/n \"
 read inst2
 if [ \"$inst2\" == \"s\" ]
 then
@@ -60,10 +59,15 @@ clear
 sudo apt-get install docker.io -y
 sudo systemctl start docker
 sudo systemctl enable docker
-sudo docker pull mysql:5.7
-sudo docker build -t monitotem_img:1.0 .
-sudo docker run -d -p 3306:3306 --name monitotem monitotem_img:1.0
-clear
+sudo docker build -t jar_executavel/java-jar:1.0 .
+sudo docker build -t banco_img/banco-mysql:1.0 ./Monitotem-3-SPRINT-DEPLOY/assistente-instalador/
+
+
+sudo apt-get install docker-compose
+cd /home/Monitotem-3-SPRINT-DEPLOY/ymls
+sudo docker-compose up
+
+sudo docker ps -a
 
 
 fi
