@@ -1,4 +1,4 @@
-version: "1.0"
+version: "3.9"
 services:
     mysql:
         image: banco_img/banco-mysql:1.0

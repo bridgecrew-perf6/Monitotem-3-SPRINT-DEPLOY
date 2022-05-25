@@ -7,11 +7,11 @@ else echo \"Usuario nao existe, criando usuario\"
 
 sudo adduser urubu100
 sudo usermod -aG sudo urubu100
-su urubu100 -p urubu100
 fi
+su urubu100 -p urubu100
 
 sudo apt-get update && sudo apt-get upgrade -y
-sudo apt-get install xrdp lxde-core lxde tigervnc-standalone-server -y
+sudo apt-get install xrdp gdm3 lxde-core lxde tigervnc-standalone-server -y
 
 sudo apt-get update && sudo apt-get upgrade -y
 git clone https://github.com/EnzoFBS/Monitotem-3-SPRINT-DEPLOY.git
@@ -41,7 +41,6 @@ then
 sudo apt install default-jdk -y
 clear
 echo \"JAVA instalado na versao 11\"
-java --version
 sleep 5
 else echo \"você escolheu não instalar\"
 break
@@ -59,12 +58,10 @@ clear
 sudo apt-get install docker.io -y
 sudo systemctl start docker
 sudo systemctl enable docker
-sudo docker build -t jar_executavel/java-jar:1.0 .
-sudo docker build -t banco_img/banco-mysql:1.0 ./Monitotem-3-SPRINT-DEPLOY/assistente-instalador/
-
-
-sudo apt-get install docker-compose
-cd /home/Monitotem-3-SPRINT-DEPLOY/ymls
+sudo docker build -t jar_executavel/java-jar:1.0 /home/Monitotem-3-SPRINT-DEPLOY/Swing-login/target/
+sudo docker build -t banco_img/banco-mysql:1.0 /home/Monitotem-3-SPRINT-DEPLOY/assistente-instalador/
+sudo apt-get install docker-compose-plugin=2.3.3~ubuntu-focal
+cd /home/Monitotem-3-SPRINT-DEPLOY/ymls/
 sudo docker-compose up
 
 sudo docker ps -a
