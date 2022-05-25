@@ -94,7 +94,7 @@ function reiniciarMaquina(
   reiniciarTotem
 ) {
   var instrucao = `
-  update totem set reiniciarTotem = ${reiniciarTotem} where idTotem = 52;
+  update totem set reiniciarTotem = ${reiniciarTotem} where idTotem = 77;
     `;
   console.log("Executando a instrução SQL: \n" + instrucao);
   return database.executar(instrucao);
